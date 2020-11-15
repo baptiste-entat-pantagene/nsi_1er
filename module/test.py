@@ -1,5 +1,8 @@
-import ModGeneral as mg
+import ModGeneral
+print(ModGeneral.__doc__)
 
 
-listeee = mg.Liste
-listeee.affiche
+maListe = ModGeneral.List
+
+print(maListe.extract)
+

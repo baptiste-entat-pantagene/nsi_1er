@@ -1,29 +1,20 @@
-"""Module generale"""
+"""Module generale pour les cours de nsi"""
 
-class Liste:
+class List:
     """classe pour le gestion facile des listes"""
 
     def ___init___(self): #constructeur
-        self.liste = [0,1,2,3]
+        self.data = [1,0]
 
 
     def affiche(self):
-        print(self.liste)
-        print("work or not")
+        print(self.data)
 
     def ajout(self, elmt):
         self.liste[len(self.liste)] = elmt
 
-    
+    def extract(self):
+        return 10
 
-    def Bool(self, elmt):
-        """prends un element et une liste et renvoie s'il y est présent"""
-
-        if elmt in self.liste:
-            if __name__ == "__main__":
-                print("True")
-            return True
-        else:
-            if __name__ == "__main__":
-                print("False")
-            return False
+class Matrice:
+    """classe pour le gestion facile des matrice"""
