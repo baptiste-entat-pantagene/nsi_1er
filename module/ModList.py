@@ -1,4 +1,18 @@
+"""Module pour la gestion des listes"""
+
+def Bool(elmt, liste):
+    """prends un element et une liste et renvoie s'il y est présent"""
+    if elmt in liste:
+        if __name__ == "__main__":
+            print("True")
+        return True
+    else:
+        if __name__ == "__main__":
+            print("False")
+        return False
+
 def Square(liste):
+    """met tous les element aux carre"""
     rListe = []
     for i in liste: 
         rListe.append(i**2)
@@ -10,16 +24,6 @@ def Inverse(liste):
         print("**>", i-1)
         rListe.append(liste[i-1])
     return rListe
-
-def Bool(elmt, liste):
-    if elmt in liste:
-        if __name__ == "__main__":
-            print("True")
-        return True
-    else:
-        if __name__ == "__main__":
-            print("False")
-        return False
 
 def Prems(liste):
     rListe = []
