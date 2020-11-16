@@ -1,6 +1,6 @@
 from tkinter import *
 
-mainWin = Tk("tk")
+mainWin = Tk()
 
 def work():
     print("nice work")
