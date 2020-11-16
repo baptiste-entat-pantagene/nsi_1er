@@ -1,8 +1,13 @@
 from tkinter import *
 
-mainWin = Tk("screenName: Optional[str]=...", "baseName: Optional[str]=...")
+mainWin = Tk("tk")
+
+def work():
+    print("nice work")
 
 text1 = Label(mainWin, text="je suis en vie")
 text1.pack()
+but1 = Button(mainWin, text="clique !", command=work)
+but1.pack()
 
 mainWin.mainloop()
