@@ -1,4 +1,22 @@
+# coding: utf-8
 """Module pour la gestion des listes"""
+
+class List:
+    """classe pour le gestion facile des listes"""
+
+    def ___init___(self): #constructeur
+        self.data = ""
+
+
+    def affiche(self):
+        print("print work 1")
+
+    def ajout(self, elmt):
+        self.data.append(elmt)
+
+    def extract(self):
+        return self.data
+
 
 def Bool(elmt, liste):
     """prends un element et une liste et renvoie s'il y est présent"""
