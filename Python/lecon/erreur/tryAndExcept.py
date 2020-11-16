@@ -1,5 +1,16 @@
 """La structure try et except"""
 
+"""forme complete:
+try:
+    pass
+except expression as identifier:
+    pass
+else:
+    pass
+finally:
+    pass
+"""
+
 
 try:
     age = int(input("votre age ?\n")) #le programme demande l'age et le stucke dans la variable -->age
