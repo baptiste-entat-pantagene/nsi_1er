@@ -20,9 +20,9 @@ except: #si l'utilisateur utilise par exemple des lettre, la conversion en ->int
 print("vous avez donc {age} ans !".format(age = age)) #si tout vas bien le print s'execute.
 
 
-"""version dans une boucle"""
+"""version dans une boucle While"""
 
-while True: #avec True la boucle tourne sans jamais s'arreter
+while True: #voir leco/base/boucleWhile
     try:
         age = int(input("votre age ?\n"))
         break #permet de sortir de la boucle avant de la finir
