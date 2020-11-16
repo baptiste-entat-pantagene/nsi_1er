@@ -18,7 +18,7 @@ print(tableauNbPair)
 
 """tableau multidimensionnel"""
 tableau2D = [[0, 1, 2], [3, 4, 5]]
-tableau3D = [[0, 1], [0, 1], [0, 1]]
+tableau3D = [[0, 2], [3, 4], [5, 6]]
 
 buff = tableau2D[1][1]
 print(buff)
