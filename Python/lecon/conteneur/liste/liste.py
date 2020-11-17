@@ -1,14 +1,12 @@
-"""tableau en python un premier conteneur"""
-"""un tableau peut contenir n'importe qu'elle type de variable python il est possible de les mélanger"""
-
 
 tableauVide = [] #Déclaration d'un tableau avec [] --> vide puisqu'il n'y a rien entre les crochets
 tableauNombre = [4, 8, 7, 6] #Le tableau est rempli avec les valeurs --> 4, 8, 7, et 6
 
 
-"""acces au tableau"""
+
 variableGet = tableauNombre[0] #--> Récupère la valeur stockée dans la première case de tableau, donc 4 dans notre exemple
 #les cases en mémoire sont numéroté à partir de 0 et non 1 
+print(tableauNombre[0])
 
 
 """declaration de tableau par comprehension"""
