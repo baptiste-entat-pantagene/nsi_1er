@@ -4,3 +4,4 @@ listeSorted = sorted(liste)
 
 print(liste) #output --> [3, 4, 1, 4, 5]
 print(listeSorted) #output --> [1, 3, 4, 4, 5]
+print(sorted(liste)) #output --> [1, 3, 4, 4, 5]
