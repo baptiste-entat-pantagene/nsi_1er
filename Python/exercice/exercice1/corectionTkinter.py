@@ -1,14 +1,10 @@
-from tkinter import *
+import tkinter as tk
 
-mainWin = Tk()
-
-def work():
-    label1 = Label(mainWin, text="buff")
-    label1.pack()
+root = tk.Tk()
 
 
-but1 = Button(mainWin, text="clique !", command=work)
-but1.pack()
-but1.pack()
-
-mainWin.mainloop()
+label = tk.Label(root, text="J'adore Python !")
+bouton = tk.Button(root, text="Quitter", fg="red",
+                   command=root.destroy)
+label.pack()
+bouton.pack()
