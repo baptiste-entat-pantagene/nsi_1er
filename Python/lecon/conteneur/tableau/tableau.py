@@ -1,5 +1,5 @@
 """tableau en python un premier conteneur"""
-"""un tableaupeut contenir n'importe qu'elle type de variable python il est possible de les mélanger"""
+"""un tableau peut contenir n'importe qu'elle type de variable python il est possible de les mélanger"""
 
 
 tableauVide = [] #Déclaration d'un tableau avec [] --> vide puisqu'il n'y a rien entre les crochets
