@@ -1,7 +1,8 @@
 # Les listes
 Une liste est un conteneur qui peut contenir n'importe qu'elle type de variable python et il est possible de les mélanger.
+**! les cases en mémoire sont numéroté à partir de 0 et non 1. **
 
-**syntaxce:**
+**syntaxe:**
 ```python
 liste = []
 #--> liste vide
@@ -14,10 +15,13 @@ print(liste [0])
 #--> Récupère la valeur stockée dans la première case préciser entre les crochets
 ``` 
 
-**! les cases en mémoire sont numéroté à partir de 0 et non 1. **
+```python
+len(liste) #--> renvoie la longueur de la liste
+liste.append(object) #--> Insert un élément à la fin de la liste
+liste.insert(position, object) #--> Insert un élément a la position donnée
+```
 
-
-**declaration de liste  par comprehension**:
+**déclaration de liste  par comprehension**:
 listeDeNbPair = [x for x in range(0, 11) if x%2==0] #Remplie le tableau de 0 à 10 et seulement si les valeurs sont paires
 
 
