@@ -5,7 +5,7 @@
 
 **piste:**
 - [python tutor](http://pythontutor.com/visualize.html "python tutor")
-Pour vérifier que votre programme crée bien un nouveau tableau au lieu de les linker.
+Pour vérifier que votre programme crée bien un nouveau tableau au lieu de le linker.
 
 
 *le 17/11/2020*
