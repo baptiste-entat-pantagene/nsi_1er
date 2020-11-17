@@ -1,5 +1,5 @@
 # Sorted
-Python propose un outil intégré de tri, notamment avec "sorted"
+Python propose des outils intégrés de tri, notamment avec "sorted"
 
 ------------
 Il peut être utilisé avec les **listes**:
