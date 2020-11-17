@@ -19,7 +19,7 @@ Sorted ne remplace pas la liste préexistante mais en créer une nouvelle, donc 
 ```python
 sorted(listeEnVrac)
 ```
-Ne fait rien, ne remplace pas l'ancienne liste.
+Ne remplace pas l'ancienne liste.
 
 ------------
 Liste des itérateurs qu'il peut prendre:
