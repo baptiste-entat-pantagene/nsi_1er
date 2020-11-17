@@ -26,3 +26,4 @@ Liste des itérateurs qu'il peut prendre:
 - list
 - set
 - ???
+
