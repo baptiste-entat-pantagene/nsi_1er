@@ -1,8 +1,14 @@
 # Sorted
-Python propose des outils intégrés de tri, notamment avec "sorted"
+Python propose des outil intégré de tri, notamment avec "sorted"
+```python
+sorted(iterable, key=None, reverse=False)
+```
+iterable correspond à la liste, set ou autres
+key est optionnel --> Permets
+reverse et optionnel --> Permets de faire un tri inverse
 
 ------------
-Il peut être utilisé avec les **listes**:
+exemple avec les **listes**:
 ```python
 listeSorted = sorted(listeEnVrac)
 ```
@@ -13,7 +19,10 @@ Sorted ne remplace pas la liste préexistante mais en créer une nouvelle, donc 
 ```python
 sorted(listeEnVrac)
 ```
-Ne fait rien, ne remplace pas l'ancienne.
+Ne fait rien, ne remplace pas l'ancienne liste.
 
 ------------
-Il peut être utilisé avec les **???**:
+Liste des itérateurs qu'il peut prendre:
+- list
+- set
+- ???
