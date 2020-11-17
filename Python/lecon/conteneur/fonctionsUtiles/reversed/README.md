@@ -30,6 +30,7 @@ llist() --> convertie `list_reverseiterator` en `list`
 ------------
 Liste des itérateurs qu'il peut prendre:
 - list
-- set
-- ???
+- range
+- string
+- tuple
 
