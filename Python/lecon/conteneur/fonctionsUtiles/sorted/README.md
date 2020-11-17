@@ -8,7 +8,7 @@ key est optionnel --> Permets
 reverse et optionnel --> Permets de faire un tri inverse
 
 ------------
-exemple avec les **listes**:
+## exemple avec les **listes**:
 ```python
 listeSorted = sorted(listeEnVrac)
 ```
