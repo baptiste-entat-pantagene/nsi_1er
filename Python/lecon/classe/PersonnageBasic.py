@@ -11,4 +11,4 @@ class Personnage:
         print(self.vitesse)
 
 David = Personnage("David")
-David.afficheStat()
+David.AfficheStat()
