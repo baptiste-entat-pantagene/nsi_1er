@@ -1,9 +1,9 @@
 def concatenation(t1, t2):
-    renvoie = t1[:] + t2[:]
+    renvoie = t1[:] + t2[:] # [:] permet de créer un copier des tableaux, sinon ils ne sont que linker
     return renvoie
 
-tab1 = [1, 2]
-tab2 = [3, 4]
+tab1 = [1, 2, 3]
+tab2 = [10, 20, 30]
 
-tab1ET2 = concatenation(tab1, tab2)
-print(tab1ET2)
+tabAdd = concatenation(tab1, tab2)
+print(tabAdd)
