@@ -1,5 +1,5 @@
-from Tableau import Tableau
+from Tableau import *
 
 tab = Tableau(5, 5)
-tab.Set(5, 0, 99)
+tab.Set(0, 0, "99")
 print(tab.tableau)
