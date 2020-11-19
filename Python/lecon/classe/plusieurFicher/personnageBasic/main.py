@@ -1,4 +1,4 @@
-import PersonnageBasicV2 as pClasse
+import PersonnageBasicV2.py as pClasse
 
 David = pClasse.Personnage("David")
 David.AfficheStat()
