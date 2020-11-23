@@ -3,5 +3,6 @@
     "python.analysis.diagnosticMode": "workspace",
     "python.analysis.extraPaths": [
         "Tableau"
-    ]
+    ],
+    "python.analysis.typeCheckingMode": "basic"
 }
