@@ -2,8 +2,10 @@
 
 int main(){
 
-    int var = 0;
-    std::cout << "hello";
-    std::cin >> var;
-
+    for (int i = 0; i < 10000; i++)
+    {
+        std::cout<< i <<std::endl;
+    }
+    
+    
 }

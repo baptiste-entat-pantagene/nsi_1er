@@ -19,9 +19,9 @@ int main()
 	}
 	catch (const std::exception&)
 	{
-		cout << "error de toi/n/n";
+		cout << "erreur : 55";
 		return -1;
 	}
-	cout << "vous avez taper : " << age << "ans\nworkNice\n";
+	cout << "vous avez taper : " << age << "ans\n";
 	return 0;
 }
