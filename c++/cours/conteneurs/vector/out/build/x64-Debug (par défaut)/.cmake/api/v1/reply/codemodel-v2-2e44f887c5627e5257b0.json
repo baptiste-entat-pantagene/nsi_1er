@@ -1,0 +1,59 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "vector",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "vector::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-vector-Debug-83dfcab79444061c1370.json",
+					"name" : "vector",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/bapt8/OneDrive/Documents/GitHub/nsi_1er/c++/cours/conteneurs/vector/out/build/x64-Debug (par défaut)",
+		"source" : "C:/Users/bapt8/OneDrive/Documents/GitHub/nsi_1er/c++/cours/conteneurs/vector"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 1
+	}
+}
