@@ -1,2 +1,2 @@
-g++ main.cpp -O2
+g++ main.cpp -O3
 start a.exe
