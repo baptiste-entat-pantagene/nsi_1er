@@ -1,6 +1,11 @@
 from typing import Dict
 
 
-dico = {1: "baptiste", 2: "véhicule à deux roues"}
+dico = {}
 
-print(dico[1])
+for i in range(2):
+    clee = input("taper la clee\n")
+    valeur = input("taper la valeur\n")
+    dico[clee] = valeur
+
+print(dico)

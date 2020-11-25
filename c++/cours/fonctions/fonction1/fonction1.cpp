@@ -5,8 +5,12 @@
 
 using namespace std;
 
-int add(int a, int b) {
-	return a + b;
+
+
+template<typename TypNam>
+const TypNam& Add(const TypNam& A, const TypNam& B)
+{
+	return A + B;
 }
 
 int main()
@@ -14,7 +18,7 @@ int main()
 	int a, b, c;
 	a = 5;
 	b = 8;
-	c = add(a, b);
+	c = Add(a, b);
 	cout << "a + b = " << c << endl;
 	return 0;
 }
