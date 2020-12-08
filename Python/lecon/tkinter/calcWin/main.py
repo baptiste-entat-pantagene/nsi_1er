@@ -53,8 +53,6 @@ def changeMod(modeDeCalcul:int = -1, label = 0) -> None:
         update_labelResult(firstLigne)
 
 
-
-
 def result(label = 0) -> None:
     global calcMod
     global firstLigne
