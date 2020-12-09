@@ -1,3 +1,7 @@
+"""
+    je pense avoir assez détaillé ¯\\_(ツ)_/¯
+"""
+
 #dict de base
 boutique_dico = {"modèle": "laptop" , "constructeur": "HP" , "RAM": "16G" , "corei7-4700HQ": "processeur", "stockage": "500 Go", "français":"clavier"}
 
@@ -18,7 +22,7 @@ for i in boutique_dico.values(): #print values
     print("values--> ", i)
 
 for k, v in boutique_dico.items(): #print keys and values
-    print("keys->", k, "; values->", v)
+    print("keys-->", k, "; values-->", v)
 
 
 #4) Écrire à la suite de votre programme les instructions pour inverser les paires de clés et valeurs erronées pour "processeur" et "clavier", en complétant cette structure
@@ -27,9 +31,9 @@ for k, v in boutique_dico.items(): #cherche ligne par ligne dans le dict avec k-
     if v == "processeur" or v == "clavier": #la valeur match avec "processeur" ou(or) "clavier"
         boutiqueDicoNice[v] = k #inverse la clée est la valeur
     else: boutiqueDicoNice[k] = v #copie la ligne du dict
-print(boutiqueDicoNice) #affiche le nouveau dict
+print("boutiqueDicoNice -->", boutiqueDicoNice) #affiche le nouveau dict
 
 
 #5) Écrire une création de dictionnaire par compréhension qui inverse toutes les clés-valeurs de boutique_dico_ok
 inversionDictNice:dict = {v : k for k, v in boutiqueDicoNice.items()} #boucle dans boutiqueDicoNice et affecte pour chaque itteration k->key et v->value (k, v->variable temp) puis affecte dans le dict v : k (inversion clees et valeurs)
-print(inversionDictNice) #affiche le nouveau dict
+print("inversionDictNice -->", inversionDictNice) #affiche le nouveau dict
