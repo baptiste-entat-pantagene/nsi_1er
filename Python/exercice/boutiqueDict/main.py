@@ -7,11 +7,11 @@ boutique_dico = {"modèle": "laptop" , "constructeur": "HP" , "RAM": "16G" , "co
 
 
 #1) Corriger une erreur de référencement "stockage" vaut "1 To"
-boutique_dico["stockage"] = "1 To" #modifie la valeur "1 To" pour la clée "stockage"
+boutique_dico["stockage"] = "1 To" #modifie la valeur "1 To" pour la clé "stockage"
 
 
 #2) Écrire l’instruction pour ajouter la paire clé-valeur : "Système d'exploitation" : "Windows 10"
-boutique_dico["Système d'exploitation"] = "Windows 10" #affecte la valeur "Windows 10" a la clée "Système d'exploitation"
+boutique_dico["Système d'exploitation"] = "Windows 10" #affecte la valeur "Windows 10" a la clé "Système d'exploitation"
 
 
 #3) Écrire un programme qui affiche la liste des clés, la liste des valeurs et la liste des paires de clés et valeurs
