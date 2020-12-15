@@ -1,0 +1,8 @@
+﻿  plusOuMoins.cpp
+D:\Documents\GitHub\nsi_1er\c++\exercice\plusOuMoins\plusOuMoins.cpp(17,15): warning C4244: 'argument' : conversion de 'time_t' en 'unsigned int', perte possible de données
+  Génération de code en cours
+  1 of 11 functions ( 9.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Fin de la génération du code
+  plusOuMoins.vcxproj -> D:\Documents\GitHub\nsi_1er\c++\exercice\plusOuMoins\x64\Release\plusOuMoins.exe
