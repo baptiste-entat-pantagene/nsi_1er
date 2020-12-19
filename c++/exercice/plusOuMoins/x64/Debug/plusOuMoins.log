@@ -1,3 +1,0 @@
-﻿  plusOuMoins.cpp
-D:\Documents\GitHub\nsi_1er\c++\exercice\plusOuMoins\plusOuMoins.cpp(17,15): warning C4244: 'argument' : conversion de 'time_t' en 'unsigned int', perte possible de données
-D:\Documents\GitHub\nsi_1er\c++\exercice\plusOuMoins\plusOuMoins.cpp(24,9): error C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.

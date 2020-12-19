@@ -1,2 +1,0 @@
-D:\Documents\GitHub\nsi_1er\c++\exercice\plusOuMoins\x64\Debug\plusOuMoins.exe
-D:\Documents\GitHub\nsi_1er\c++\exercice\plusOuMoins\x64\Debug\plusOuMoins.pdb

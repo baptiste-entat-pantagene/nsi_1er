@@ -1,7 +1,0 @@
-# ninja log v5
-1	590	627926795	CMakeFiles/fonction1.dir/fonction1.cpp.obj	e8ec9b2084d7cd64
-591	1038	627926795	fonction1.exe	d0ca7db848f0e86b
-0	923	628012844	CMakeFiles/fonction1.dir/fonction1.cpp.obj	e8ec9b2084d7cd64
-931	1403	628012845	fonction1.exe	d0ca7db848f0e86b
-0	741	628012964	CMakeFiles/fonction1.dir/fonction1.cpp.obj	e8ec9b2084d7cd64
-743	964	628012964	fonction1.exe	d0ca7db848f0e86b
