@@ -1,0 +1,10 @@
+$eleve%
+baptiste
+miche
+arachi
+
+$prof%
+alex
+tom
+
+$exit%
