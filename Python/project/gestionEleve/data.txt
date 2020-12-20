@@ -1,10 +1,11 @@
 $eleve%
-baptiste
-miche
-arachi
+Baptiste
+Miche
+Arachi
 
 $prof%
-alex
-tom
+Alex
+Tom
+Vito
 
 $exit%
