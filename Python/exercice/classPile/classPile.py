@@ -1,3 +1,7 @@
+"""
+Baptiste Entat
+20 dec 2020
+"""
 class Pile:
     """
     class pour la gestion d'une pile
