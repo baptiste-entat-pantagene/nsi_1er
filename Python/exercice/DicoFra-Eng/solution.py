@@ -40,7 +40,7 @@ print(ajoute("garçon de jeu", "Game-Boy", traduction))
 
 #BONUS
 #6. Écrivez une fonction "supprime" prenant "lett" et "dico" comme arguments et qui supprime du dictionnaire toutes les entrées dont la clé commence par la lettre lett.
-def supp(lett:str, dictIn:dict):
+def supp(lett:chr, dictIn:dict):
     dictOut:dict = {}
     for k, v in dictIn.items():
         if k[0] != lett:
