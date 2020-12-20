@@ -1,5 +1,0 @@
-C:/Users/bapt8/OneDrive/Documents/GitHub/nsi_1er/QT/basic/build-helloWorld-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/CMakeFiles/helloWorld.dir
-C:/Users/bapt8/OneDrive/Documents/GitHub/nsi_1er/QT/basic/build-helloWorld-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/CMakeFiles/edit_cache.dir
-C:/Users/bapt8/OneDrive/Documents/GitHub/nsi_1er/QT/basic/build-helloWorld-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/CMakeFiles/rebuild_cache.dir
-C:/Users/bapt8/OneDrive/Documents/GitHub/nsi_1er/QT/basic/build-helloWorld-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/CMakeFiles/helloWorld_autogen_timestamp_deps.dir
-C:/Users/bapt8/OneDrive/Documents/GitHub/nsi_1er/QT/basic/build-helloWorld-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/CMakeFiles/helloWorld_autogen.dir

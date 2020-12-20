@@ -24,7 +24,7 @@ class Pile:
             self._size = sizePile
         elif dataMod == 1: #dataMod: 1->mode conservation, 2->conservation partiel
             if sizePile < self._size:
-                raise ValueError("warning: perte de donnee possible")
+                raise Warning("Perte de donnee possible")
             else:
                 for i in range(0, sizePile - self._size + 1):
                     self._pile.append(0)

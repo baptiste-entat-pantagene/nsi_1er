@@ -15,7 +15,9 @@ pile.app(5)
 pile.app(12)
 pile.app(88)
 
-pile.setSize(10, 1)
+
+pile.setSize(1, 1)
+
 
 pile.app(72) #add
 #pile.pop() #and supp
