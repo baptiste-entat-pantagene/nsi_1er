@@ -2,17 +2,31 @@
 Baptiste Entat
 20 dec 2020
 """
-class Pile:
+from typing import List
+
+
+class ClassPile:
     """
     class pour la gestion d'une pile
     """
-    def __init__(self, sizePile:int):
+    def __init__(self, sizePile:int = None, listIn:list = None):
         """
-        please complete me
+        sizePile = Int, listIn = None -> pile de la taille de sizePile;
+        sizePile = None, listIn = lst -> copie de la liste dans la pile
         """
-        self._pile = [0]* (sizePile + 1)
-        #self._pile[0] = 0 
-        self._size = sizePile
+        if sizePile != None and listIn == None:
+            self._pile = [0]* (sizePile + 1)
+            #self._pile[0] = 0 
+            self._size = sizePile
+        elif sizePile == None and listIn != None:
+            self._pile = []
+            self._pile.append(len(listIn))
+            for i in listIn:
+                self._pile.append(i)
+            self._size = len(listIn)
+        else:
+            raise NotImplementedError("!-> not implemented param <-!")
+
 
     def setSize(self, sizePile:int, dataMod:int = 0) -> None:
         """
@@ -42,7 +56,6 @@ class Pile:
         for i in range(0, self._size):
             self._pile[i] = 0
 
-
     def app(self, value) -> None:
         """
         ajoute une valeur dans la pile
@@ -53,6 +66,19 @@ class Pile:
         else:
             self._pile[self._pile[0] + 1] = value
             self._pile[0] += 1
+
+    def appList(self, listIn):
+        if listIn is list == False and listIn is tuple == False:
+            raise NotImplementedError("!-> not implemented type ", type(listIn), " <-!")
+        elif (self._pile[0] + len(listIn)) > self._size:
+            print("!-> erreur debordement de la pile <-!")
+            return None
+        iList = 0
+        for i in range(self._pile[0], self._pile[0] + len(listIn)):
+            self._pile[i + 1] = listIn[iList]
+            self._pile[0] += 1
+            iList += 1
+            
     
     def pop(self) -> None:
         """
@@ -64,7 +90,6 @@ class Pile:
         else:
             self._pile[self._pile[0]] = 0
             self._pile[0] -= 1
-
 
     def get_ActualBloc(self) -> int:
         """
@@ -87,4 +112,11 @@ class Pile:
         for i in range(0, self._size):
             buff.append(self._pile[i + 1])
         return buff
+
+    def get_last(self):
+        """
+        renvoie le dernier element la pile
+        """
+        return self._pile[self._size]
+
     

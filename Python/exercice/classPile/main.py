@@ -3,27 +3,28 @@ Baptiste Entat
 20 dec 2020
 """
 
-#class code
 from classPile import *
+
+#fx code
+def tri(pileIn:ClassPile):
+    """
+    tri de la pile avec des Pile(ClassPile)
+    """
+    pileW1 = ClassPile(pileIn.get_Taille())
+    pileW2 = ClassPile(pileIn.get_Taille())
+
+    raise NotImplementedError("!-> not implemented fx() <-!")
+
 
 print("--->> start <<---")
 #main code
 
-pile = Pile(5) #creation de la pile
-
-pile.app(5)
-pile.app(12)
-pile.app(88)
+listeDep = [9, 1, 2, 3, 4]
+pile = ClassPile(sizePile=None, listIn=listeDep) #creation de la pile
 
 
-pile.setSize(1, 1)
-
-
-pile.app(72) #add
-#pile.pop() #and supp
-
-
+print("id ->", id(pile))
 
 print("bloc utilisée ->", pile.get_ActualBloc(), "; sur ->", pile.get_Taille())
-print("clean ->", pile.get_pile())
-print("full ->", pile._pile)
+print("pile clean ->", pile.get_pile())
+print("pile full ->", pile._pile)
