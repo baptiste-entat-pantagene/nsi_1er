@@ -88,10 +88,12 @@ affichageResult.grid(column=0, row=0)
 
 # Ajout des boutons de la calc
 
+x = 0
 for i in range(9, -1, -1):
-    but_1 = Button(FramNum, text=str(i), command=partial(addToLigne, str(i)))
-    but_1.grid(column = i, row = 1)
+    button = Button(FramNum, text=str(i), command=partial(addToLigne, str(i)))
+    button.grid(column = i, row = i)
     mainWin.bind(str(i), partial(addToLigne, str(i)))
+    
 
 """
 but_1 = Button(FramNum, text="1", command=partial(addToLigne, '1'))
@@ -127,8 +129,8 @@ mainWin.bind('9', partial(addToLigne, '9'))
 but_0 = Button(FramNum, text="0", command=partial(addToLigne, '0'))
 but_0.grid(column=1, row=3)
 mainWin.bind('0', partial(addToLigne, '0'))
-
 """
+
 
 #framAction
 but_Plus = Button(FramAction, text="+", command=partial(changeMod, 0))

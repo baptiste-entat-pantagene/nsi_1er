@@ -139,10 +139,35 @@ class ClassPile:
         self.clear()
 
         for i in range(0, len(pileWork)):
-            print("index ->", i)
-            print("cont ->", pileWork[i])
             self.app(pileWork[i])
             
+    def fx_sort(self) -> None:
+        """
+        !-> not implemented <-!
+        tri la pile
+        """
+        raise NotImplementedError("!-> not implemented ClassPile.fx_sort() <-!")
+
+        pileWork1 = ClassPile(sizePile=self.get_Taille(), listIn=None)
+        pileWork2 = ClassPile(sizePile=self.get_Taille(), listIn=None)
+
+        for i in range(0, self.get_Taille()):
+            if self.get_last() <= pileWork1.get_last():
+                pileWork1.app(self.get_last())
+                self.pop()
+            elif self.get_last() > pileWork2.get_last():
+                pileWork2.app(self.get_last())
+                self.pop()
+            else:
+                print("!-> undefined <-!")
+                print(self.get_last())
+                print(pileWork1.get_last())
+                print(self.get_last() <= pileWork1.get_last())
+                self.pop()
+
+
+        print("w1->", pileWork1.get_pile())
+        print("w2->", pileWork2.get_pile())
 
 
 #raise NotImplementedError("!-> not implemented <-!")
