@@ -6,25 +6,20 @@ Baptiste Entat
 from classPile import *
 
 #fx code
-def tri(pileIn:ClassPile):
-    """
-    tri de la pile avec des Pile(ClassPile)
-    """
-    pileW1 = ClassPile(pileIn.get_Taille())
-    pileW2 = ClassPile(pileIn.get_Taille())
 
-    raise NotImplementedError("!-> not implemented fx() <-!")
 
 
 print("--->> start <<---")
 #main code
 
-listeDep = [9, 1, 2, 3, 4]
+listeDep = [2, 13, 22, 33, 44]
 pile = ClassPile(sizePile=None, listIn=listeDep) #creation de la pile
 
 
-print("id ->", id(pile))
+pile.fx_reverse()
 
+
+print("--->> stats <<---")
 print("bloc utilisée ->", pile.get_ActualBloc(), "; sur ->", pile.get_Taille())
 print("pile clean ->", pile.get_pile())
 print("pile full ->", pile._pile)

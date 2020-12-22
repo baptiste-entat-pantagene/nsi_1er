@@ -53,8 +53,7 @@ class ClassPile:
             raise ValueError("fatal error, class 'Pile.setSize'")
 
     def clear(self) -> None:
-        for i in range(0, self._size):
-            self._pile[i] = 0
+        self._pile = [0] * (self._size + 1)
 
     def app(self, value) -> None:
         """
@@ -84,13 +83,15 @@ class ClassPile:
         """
         supprime la derniere valeur de la pile
         """
-        if (self._pile[0] + 1) < self._size:
+        if (self._pile[0]) < 0:
             print("!-> erreur pile vide <-!")
             return None
         else:
             self._pile[self._pile[0]] = 0
             self._pile[0] -= 1
+    
 
+    #section get
     def get_ActualBloc(self) -> int:
         """
         renvoie le nombre de bloc actuellement utilisé dans la pile
@@ -117,6 +118,31 @@ class ClassPile:
         """
         renvoie le dernier element la pile
         """
-        return self._pile[self._size]
-
+        return self._pile[self._pile[0]]
     
+    def get_lastAndPop(self):
+        """
+        renvoie le dernier element la pile et le supp
+        """
+        buff = self.get_last()
+        self.pop()
+        return buff
+    
+
+    #section Fx
+    def fx_reverse(self) -> None:
+        """
+        inverse la pile
+        """
+        pileWork:list = self.get_pile()
+        pileWork.reverse()
+        self.clear()
+
+        for i in range(0, len(pileWork)):
+            print("index ->", i)
+            print("cont ->", pileWork[i])
+            self.app(pileWork[i])
+            
+
+
+#raise NotImplementedError("!-> not implemented <-!")
