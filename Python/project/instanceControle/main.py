@@ -9,6 +9,15 @@ class manager:
     def get_LastInstance_ID(self):
         return self._instance[len(self._instance) -1].get_ID()
 
+    def get_LastInstance(self):
+        return self._instance[len(self._instance) -1]
+    
+    def get_AllInstance(self):
+        return self._instance
+    
+    def get_InstanceByID(self, ID:int):
+        return self._instance[ID]
+
 
 class instanceType1:
     def __init__(self, id:int = 0):
@@ -23,7 +32,7 @@ manag = manager()
 for i in range(0, 5):
     manag.new(instanceType1)
 
-print("last instance ID->", manag.get_LastInstance_ID())
+print(" instance ID==4->", manag.get_InstanceByID(4))
 
 
 
