@@ -10,7 +10,7 @@ from classPile import *
 
 
 
-print("--->> start main.py <<---")
+print("\n--->> start main.py <<---")
 #main code
 
 listeDep = (1, 5, 2, 3)
@@ -18,8 +18,8 @@ listeDep = (1, 5, 2, 3)
 pile = ClassPile(sizePile=4, listIn=None, debugLevel= 1) #creation de la pile
 
 
-pile.appList(listeDep)
+pile.pushList(listeDep)
 pile.debug_statPile()
 
 
-print("--->> exit main.py <<---")
+print("--->> exit main.py <<---\n")

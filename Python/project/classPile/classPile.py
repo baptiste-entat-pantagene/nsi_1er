@@ -66,9 +66,9 @@ class ClassPile:
             self._size = newSizePile
             for i in range(0, newSizePile):
                 if i < len(buff):
-                    self.app(buff[i])
+                    self.push(buff[i])
                 else:
-                    self.app(0)
+                    self.push(0)
                     self._pile[0] -= 1
         else:
             if self._debugLevel == 1:
@@ -78,7 +78,7 @@ class ClassPile:
     def clear(self) -> None:
         self._pile = [0] * (self._size + 1)
 
-    def app(self, value) -> None:
+    def push(self, value) -> None:
         """
         ajoute une valeur dans la pile
         """
@@ -90,7 +90,7 @@ class ClassPile:
             self._pile[self._pile[0] + 1] = value
             self._pile[0] += 1
 
-    def appList(self, listIn):
+    def pushList(self, listIn):
         if ((type(listIn) is list) == False) and ((type(listIn) is tuple) == False):
             if self._debugLevel == 1:
                 raise NotImplementedError("!-> not implemented type ->", type(listIn)," <-!")
@@ -171,22 +171,20 @@ class ClassPile:
         pileWork.reverse()
         self.clear()
         for i in range(0, len(pileWork)):
-            self.app(pileWork[i])
+            self.push(pileWork[i])
             
     def fx_sort(self) -> None:
         """
         !-> not fully implemented <-!
         tri la pile
         """
-        #raise NotImplementedError("!-> not implemented ClassPile.fx_sort() <-!")
         pileWork = []
-
         for i in range(0, self._size):
             pileWork.append(self._pile[i + 1])
         pileWork.sort()
         self.clear()
         for i in range(0, len(pileWork)):
-            self.app(pileWork[i])
+            self.push(pileWork[i])
 
     def debug_statPile(self):
         print("--->beging> stats de la pile <<---")
