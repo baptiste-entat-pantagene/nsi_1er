@@ -9,11 +9,20 @@ class ClassPile:
     """
     class pour la gestion d'une pile
     """
-    def __init__(self, sizePile:int = None, listIn:list = None):
+    def __init__(self, sizePile:int = None, listIn:list = None, debugLevel:int = 0):
         """
-        sizePile = Int, listIn = None -> pile de la taille de sizePile;
-        sizePile = None, listIn = lst -> copie de la liste dans la pile
+        sizePile = Int, listIn = None -> pile de la taille de sizePile\n
+        sizePile = None, listIn = lst -> copie de la liste dans la pile\n
+        debugLevel:int = 0 -> mode release (essaye d'ignorer les erreur)\n
+        debugLevel:int = 1 -> mode debug (leve les exception)
         """
+        if debugLevel == 0:
+            self._debugLevel = 0
+        elif debugLevel == 1:
+            self._debugLevel = 1
+        else:
+            raise NotImplementedError("!-> not implemented param <-!")
+
         if sizePile != None and listIn == None:
             self._pile = [0]* (sizePile + 1)
             #self._pile[0] = 0 
@@ -25,32 +34,46 @@ class ClassPile:
                 self._pile.append(i)
             self._size = len(listIn)
         else:
-            raise NotImplementedError("!-> not implemented param <-!")
+            if self._debugLevel == 1:
+                raise NotImplementedError("!-> not implemented param", "\nobj -> ", self, "\nsizePile -> ", sizePile, "\nlisteIn -> ", listIn, "\ndebugLevel -> ", debugLevel, "\n<-!")
+                return None
+
+        
 
 
-    def setSize(self, sizePile:int, dataMod:int = 0) -> None:
+    def set_Size(self, newSizePile:int, dataMod:int = 0) -> None:
         """
-        change la taille de la pile;
-        dataMod: 0->suppression, 1->mode conservation, 2->conservation partiel
+        change la taille de la pile\n
+        dataMod: 0->suppression ; 1->conservation complete ; 2->conservation partiel
         """
         if dataMod == 0: #dataMod: 0->suppression
-            self._pile = [0] * (sizePile + 1)
-            self._size = sizePile
-        elif dataMod == 1: #dataMod: 1->mode conservation, 2->conservation partiel
-            if sizePile < self._size:
-                raise Warning("Perte de donnee possible")
+            self._pile = [0] * (newSizePile + 1)
+            self._size = newSizePile
+        elif dataMod == 1: #dataMod: 1->mode conservation complete
+            if newSizePile < self._size:
+                if self._debugLevel == 1:
+                    raise Warning("Perte de donnee possible")
+                return None
             else:
-                for i in range(0, sizePile - self._size + 1):
+                for i in range(0, newSizePile - self._size):
                     self._pile.append(0)
-                self._size = sizePile
+                self._size = newSizePile
         elif dataMod == 2: #dataMod: 2->conservation partiel
-            buff = self._pile[:]
-            self._pile = [0] * (sizePile + 1)
-            for i in range(0, sizePile):
-                self.app(buff[i+1])
-            self._size = sizePile
+            buff = []
+            for i in range(0, self._size):
+                buff.append(self._pile[i + 1])
+            self._pile = [0] * (newSizePile + 1)
+            self._size = newSizePile
+            for i in range(0, newSizePile):
+                if i < len(buff):
+                    self.app(buff[i])
+                else:
+                    self.app(0)
+                    self._pile[0] -= 1
         else:
-            raise ValueError("fatal error, class 'Pile.setSize'")
+            if self._debugLevel == 1:
+                raise NotImplementedError("notImplemented value of dataMod -> ", dataMod)
+            return None
 
     def clear(self) -> None:
         self._pile = [0] * (self._size + 1)
@@ -60,17 +83,21 @@ class ClassPile:
         ajoute une valeur dans la pile
         """
         if (self._pile[0] + 1) > self._size:
-            print("!-> erreur debordement de la pile <-!")
+            if self._debugLevel == 1:
+                raise ValueError("!-> erreur debordement de la pile <-!")
             return None
         else:
             self._pile[self._pile[0] + 1] = value
             self._pile[0] += 1
 
     def appList(self, listIn):
-        if listIn is list == False and listIn is tuple == False:
-            raise NotImplementedError("!-> not implemented type ", type(listIn), " <-!")
+        if ((type(listIn) is list) == False) and ((type(listIn) is tuple) == False):
+            if self._debugLevel == 1:
+                raise NotImplementedError("!-> not implemented type ->", type(listIn)," <-!")
+            return None
         elif (self._pile[0] + len(listIn)) > self._size:
-            print("!-> erreur debordement de la pile <-!")
+            if self._debugLevel == 1:
+                raise ValueError("!-> erreur debordement de la pile <-!")
             return None
         iList = 0
         for i in range(self._pile[0], self._pile[0] + len(listIn)):
@@ -83,8 +110,9 @@ class ClassPile:
         """
         supprime la derniere valeur de la pile
         """
-        if (self._pile[0]) < 0:
-            print("!-> erreur pile vide <-!")
+        if (self._pile[0]) <= 0:
+            if self._debugLevel == 1:
+                raise ValueError("!-> erreur pile vide <-!")
             return None
         else:
             self._pile[self._pile[0]] = 0
@@ -109,6 +137,9 @@ class ClassPile:
         """
         renvoie la pile sans l'index sous forme de liste
         """
+        if self._debugLevel == 0: #illegal en release
+            raise PermissionError("illegal lol")
+
         buff = []
         for i in range(0, self._size):
             buff.append(self._pile[i + 1])
@@ -134,40 +165,40 @@ class ClassPile:
         """
         inverse la pile
         """
-        pileWork:list = self.get_pile()
+        pileWork = []
+        for i in range(0, self._size):
+            pileWork.append(self._pile[i + 1])
         pileWork.reverse()
         self.clear()
-
         for i in range(0, len(pileWork)):
             self.app(pileWork[i])
             
     def fx_sort(self) -> None:
         """
-        !-> not implemented <-!
+        !-> not fully implemented <-!
         tri la pile
         """
-        raise NotImplementedError("!-> not implemented ClassPile.fx_sort() <-!")
+        #raise NotImplementedError("!-> not implemented ClassPile.fx_sort() <-!")
+        pileWork = []
 
-        pileWork1 = ClassPile(sizePile=self.get_Taille(), listIn=None)
-        pileWork2 = ClassPile(sizePile=self.get_Taille(), listIn=None)
+        for i in range(0, self._size):
+            pileWork.append(self._pile[i + 1])
+        pileWork.sort()
+        self.clear()
+        for i in range(0, len(pileWork)):
+            self.app(pileWork[i])
 
-        for i in range(0, self.get_Taille()):
-            if self.get_last() <= pileWork1.get_last():
-                pileWork1.app(self.get_last())
-                self.pop()
-            elif self.get_last() > pileWork2.get_last():
-                pileWork2.app(self.get_last())
-                self.pop()
-            else:
-                print("!-> undefined <-!")
-                print(self.get_last())
-                print(pileWork1.get_last())
-                print(self.get_last() <= pileWork1.get_last())
-                self.pop()
+    def debug_statPile(self):
+        print("--->beging> stats de la pile <<---")
+        print("bloc utilisée ->", self.get_ActualBloc(), "sur", self.get_Taille())
 
+        pileClean = []
+        for i in range(0, self._size):
+            pileClean.append(self._pile[i + 1])
+        print("pile sans index interne ->", pileClean)
 
-        print("w1->", pileWork1.get_pile())
-        print("w2->", pileWork2.get_pile())
-
+        print("pile avec index interne ->", self._pile)
+        print("pile debugLevel ->", self._debugLevel)
+        print("--->END> stats de la pile <<---")
 
 #raise NotImplementedError("!-> not implemented <-!")
