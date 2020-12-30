@@ -1,8 +1,9 @@
 """
 Baptiste Entat
 20 dec 2020
+https://github.com/bapt800/nsi_1er
 """
-from typing import List
+from typing import List #je sais plus...
 
 
 class ClassPile:
@@ -13,7 +14,7 @@ class ClassPile:
         """
         sizePile = Int, listIn = None -> pile de la taille de sizePile\n
         sizePile = None, listIn = lst -> copie de la liste dans la pile\n
-        debugLevel:int = 0 -> mode release (essaye d'ignorer les erreur)\n
+        debugLevel:int = 0 -> mode release (ou 'suicide mode')\n
         debugLevel:int = 1 -> mode debug (leve les exception)
         """
         if debugLevel == 0:
@@ -25,7 +26,7 @@ class ClassPile:
 
         if sizePile != None and listIn == None:
             self._pile = [0]* (sizePile + 1)
-            #self._pile[0] = 0 
+            #self._pile[0] = 0 -> inutile mais indicatif
             self._size = sizePile
         elif sizePile == None and listIn != None:
             self._pile = []
@@ -76,6 +77,9 @@ class ClassPile:
             return None
 
     def clear(self) -> None:
+        """
+        supprime toutes les valeurs de la pile
+        """
         self._pile = [0] * (self._size + 1)
 
     def push(self, value) -> None:
@@ -91,6 +95,9 @@ class ClassPile:
             self._pile[0] += 1
 
     def pushList(self, listIn):
+        """
+        ajoute une liste dans la pile
+        """
         if ((type(listIn) is list) == False) and ((type(listIn) is tuple) == False):
             if self._debugLevel == 1:
                 raise NotImplementedError("!-> not implemented type ->", type(listIn)," <-!")
@@ -122,7 +129,7 @@ class ClassPile:
     #section get
     def get_ActualBloc(self) -> int:
         """
-        renvoie le nombre de bloc actuellement utilisé dans la pile
+        renvoie le nombre d'emplacements actuellement utilisé dans la pile
         """
         return self._pile[0]
     
@@ -135,7 +142,7 @@ class ClassPile:
 
     def get_pile(self) -> list:
         """
-        renvoie la pile sans l'index sous forme de liste
+        renvoie la pile sans l'index et sous forme de liste
         """
         if self._debugLevel == 0: #illegal en release
             raise PermissionError("illegal lol")
@@ -185,6 +192,17 @@ class ClassPile:
         self.clear()
         for i in range(0, len(pileWork)):
             self.push(pileWork[i])
+    
+    def fx_isIn(self, value) -> bool:
+        """
+        renvoie True si value est dans la pile sinon False
+        """
+        for i in range(0, self._size):
+            buff = self._pile[i + 1]
+            if buff == value:
+                return True
+        return False
+            
 
     def debug_statPile(self):
         print("--->beging> stats de la pile <<---")
@@ -199,4 +217,3 @@ class ClassPile:
         print("pile debugLevel ->", self._debugLevel)
         print("--->END> stats de la pile <<---")
 
-#raise NotImplementedError("!-> not implemented <-!")
