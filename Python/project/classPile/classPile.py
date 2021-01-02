@@ -13,7 +13,7 @@ class ClassPile:
     def __init__(self, sizePile:int = None, listIn:list = None, debugLevel:int = 0):
         """
         sizePile = Int, listIn = None -> pile de la taille de sizePile\n
-        sizePile = None, listIn = lst -> copie de la liste dans la pile\n
+        sizePile = None, listIn = lst -> copie d'une liste dans la pile\n
         debugLevel:int = 0 -> mode release (ou 'suicide mode')\n
         debugLevel:int = 1 -> mode debug (leve les exception)
         """
@@ -175,9 +175,8 @@ class ClassPile:
         pileWork = []
         for i in range(0, self._size):
             pileWork.append(self._pile[i + 1])
-        pileWork.reverse()
         self.clear()
-        for i in range(0, len(pileWork)):
+        for i in range(len(pileWork) -1, -1, -1):
             self.push(pileWork[i])
             
     def fx_sort(self) -> None:
@@ -185,13 +184,33 @@ class ClassPile:
         !-> not fully implemented <-!
         tri la pile
         """
-        pileWork = []
+        listWork = []
         for i in range(0, self._size):
-            pileWork.append(self._pile[i + 1])
-        pileWork.sort()
+            listWork.append(self._pile[i + 1])
+        listWork.sort()
         self.clear()
-        for i in range(0, len(pileWork)):
-            self.push(pileWork[i])
+        for i in range(0, len(listWork)):
+            self.push(listWork[i])
+
+    def fx_sortBool(self) -> bool:
+        """
+        renvoi True si la pile est triée par ordre croissant,\n
+        sinon renvoi False
+        !-> Not optimised version <-!
+        """
+        listWork = []
+        for i in range(0, self._size):
+            listWork.append(self._pile[i + 1])
+
+        cleVerif = listWork[0]
+        ittVerif = 0
+        for i_pass in range(0, len(listWork)):
+            if cleVerif <= listWork[i_pass]:
+                ittVerif += 1
+                if ittVerif == len(listWork):
+                    return True
+        return False
+        
     
     def fx_isIn(self, value) -> bool:
         """
@@ -205,7 +224,7 @@ class ClassPile:
             
 
     def debug_statPile(self):
-        print("--->beging> stats de la pile <<---")
+        print("  --->beging> stats de la pile <<---")
         print("bloc utilisée ->", self.get_ActualBloc(), "sur", self.get_Taille())
 
         pileClean = []
@@ -215,5 +234,5 @@ class ClassPile:
 
         print("pile avec index interne ->", self._pile)
         print("pile debugLevel ->", self._debugLevel)
-        print("--->END> stats de la pile <<---")
+        print("  --->END> stats de la pile <<---")
 
