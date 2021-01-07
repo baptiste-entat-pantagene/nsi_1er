@@ -1,6 +1,6 @@
 """
 Baptiste Entat 18 Dec 2020
-https://github.com/bapt800/nsi_1er/tree/main/Python/exercice/DicoFra-Eng
+https://github.com/bapt800/nsi_1er
 """
 
 #1. Choisissez 5 mots de la langue française, et créez le dictionnaire traduction.
@@ -30,7 +30,7 @@ francais(traduction)
 # et "dico" représente le dictionnaire à modifier), 
 # et ajoute cet ensemble dans le dictionnaire uniquement si la clé n'est pas présente dans le dictionnaire.
 def ajoute(motFr:str, motAng:str, dictIn:dict):
-    if motFr is dictIn:
+    if motFr in dictIn:
         pass
     else:
         dictIn[motFr] = motAng
