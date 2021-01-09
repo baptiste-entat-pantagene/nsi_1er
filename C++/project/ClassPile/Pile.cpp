@@ -7,7 +7,7 @@
 Pile::Pile(void)
 {
     m_taille = 0;
-    m_pile[1] = 0;
+    m_pile[2] = 0;
 }
 
 Pile::Pile(int taille)
@@ -39,8 +39,14 @@ int Pile::get_actualBlocs(void)
     return m_pile[0];
 }
 
-int Pile::push(int value)
+void Pile::resize(int newSize)
 {
-    m_pile[m_pile[0]] = value;
-    return 0;
+    m_taille = newSize + 1;
+    
+}
+
+void Pile::push(int value)
+{
+    m_pile[m_pile[0] +1] = value;
+    m_pile[0] += 1;
 }

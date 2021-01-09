@@ -9,11 +9,13 @@ int main()
 {
 	cout << "    --> start <--" << endl;
 
-	Pile pile(10);
+	Pile pile;
 	pile.clear();
+	pile.push(5);
+	pile.push(6);
 
-	cout << "taille max de bloc dans la pile-> " << pile.get_taille() << endl;
-	cout << "blocs utilise->" << pile.get_actualBlocs() << endl;
+	
+	cout << "blocs utilise->" << pile.get_actualBlocs() << ", sur ->" << pile.get_taille() << endl;
 
 	return 0;
 }

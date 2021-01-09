@@ -13,9 +13,10 @@ public:
     int get_actualBlocs(void);
 
     //set section
-    int push(int value);
+    void resize(int newSize);
+    void push(int value);
 
-//private:
+private:
     int m_taille;
     int m_pile[10];
 };

@@ -4,6 +4,7 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 
 // TODO: Référencez ici les en-têtes supplémentaires nécessaires à votre programme.
 
