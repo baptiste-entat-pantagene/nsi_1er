@@ -8,12 +8,15 @@ Pile::Pile(void)
 {
     m_taille = 0;
     m_pile[2] = 0;
+    std::cout << "error" << std::endl;
 }
 
 Pile::Pile(int taille)
 {
-    m_taille = taille + 1;
-    m_pile[taille] = 0;
+    m_taille = taille;
+    m_pile[taille +1] = 0;
+    clear();
+    
 }
 
 void Pile::clear(void)
@@ -39,6 +42,19 @@ int Pile::get_actualBlocs(void)
     return m_pile[0];
 }
 
+int Pile::get_last(void)
+{
+    return m_pile[m_pile[0]];
+}
+
+int Pile::get_lastAndPop(void)
+{
+    int buff;
+    buff = get_last();
+    pop();
+    return buff;
+}
+
 void Pile::resize(int newSize)
 {
     m_taille = newSize + 1;
@@ -47,6 +63,23 @@ void Pile::resize(int newSize)
 
 void Pile::push(int value)
 {
-    m_pile[m_pile[0] +1] = value;
-    m_pile[0] += 1;
+    if (m_pile[0] == m_taille)
+    {
+        std::cout << "  !-> debordement de pile positif <!" << std::endl;
+    }
+    else
+    {
+        m_pile[m_pile[0] + 1] = value;
+        m_pile[0] += 1;
+    }
+}
+
+void Pile::pop(void)
+{
+    m_pile[0] -= 1;
+}
+
+void Pile::info(void)
+{
+    std::cout << "blocs utilise-> " << get_actualBlocs() << ", sur -> " << get_taille() << std::endl;
 }

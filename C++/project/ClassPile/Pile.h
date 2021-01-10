@@ -11,10 +11,16 @@ public:
     //get section
     int get_taille(void);
     int get_actualBlocs(void);
+    int get_last(void);
+    int get_lastAndPop(void);
 
     //set section
     void resize(int newSize);
     void push(int value);
+    void pop(void);
+
+    //print section
+    void info(void);
 
 private:
     int m_taille;
