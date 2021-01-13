@@ -4,62 +4,95 @@
 #include "revision_ BoucleFor-ASCIIArt-Listes.h"
 using namespace std;
 
-string repeter_lettres_n_fois(string text, int multi = 1);
-string repeter_lettres_liste(string text, int tab[]);
-string triangle(int taille);
+
+int inputInt(void);
+
 
 int main()
 {
 	cout << "start" << endl;
 
+	//fonction pour répéter les lettres de mots non implémenter dans le sélecteur de dessin,
+	//mis sous commentaire mais bien fonctionnelle...
 	/*
+	cout << repeter_lettres_n_fois("salut", 2);
 	int tab[] = { 1, 1, 8, 4, 2 };
 	cout << repeter_lettres_liste("salut", tab);
 	*/
 
-	cout << triangle(5);
+	string lstFx[6] = { "carre" ,"triangle", "triangleReverse", "triangleMiroire", "diagonale", "diagonalReverse" };
+	
+
+	int dessinX = 0, tailleDessinX = 0;
+	while (true)
+	{
+		cout << "select mode :\n";
+		for (int i = 1; i <= 6; i++) //lstFx -> liste des modes de dessins...
+		{
+			cout << i << " -> " << lstFx[i - 1] << endl;
+		}
+		dessinX = inputInt();
+		if (dessinX < 1 || dessinX > 6)
+		{
+			system("cls");
+			cout << "veilliez recommencer\n";
+			continue;
+		}
+		system("cls");
+		cout << "select mode :\n";
+		cout << "taille du dessin ?\n";
+		tailleDessinX = inputInt();
+		break;
+	}
+
+	system("cls");
+
+	
+	switch (dessinX)
+	{
+	case 1:
+		cout << carre(tailleDessinX);
+		break;
+	case 2:
+		cout << triangle(tailleDessinX);
+		break;
+	case 3:
+		cout << triangleReverse(tailleDessinX);
+		break;
+	case 4:
+		cout << triangleMiroire(tailleDessinX);
+		break;
+	case 5:
+		cout << diagonal(tailleDessinX);
+		break;
+	case 6:
+		cout << diagonalReverse(tailleDessinX);
+		break;
+	default:
+		cout << "fuck !";
+		break;
+	}
 
 	return 0;
 }
 
-
-string repeter_lettres_n_fois(string text, int multi)
+int inputInt(void)
 {
-	string buff;
-	for (int i = 0; i < text.length(); i++)
+	char buff[10];
+	int secured = 0;
+	while (true)
 	{
-		for (int ii = 0; ii < multi; ii++)
+		cin >> buff;
+		try
 		{
-			buff += text[i];
+			secured = stoi(buff);
+			break;
+		}
+		catch (const std::exception&)
+		{
+			cout << "!-> please retry\n";
+			continue;
 		}
 	}
-	return buff;
-}
-
-string repeter_lettres_liste(string text, int tab[])
-{
-	string buff;
-	for (int i = 0; i < text.length(); i++)
-	{
-		for (int ii = 0; ii < tab[i]; ii++)
-		{
-			buff += text[i];
-		}
-	}
-	return buff;
-}
-
-string triangle(int taille)
-{
-	string buff;
-	for (int i = 1; i < taille +1; i++)
-	{
-		for (int ii = 0; ii < i; ii++)
-		{
-			buff += "*";
-		}
-		buff += "\n";
-	}
-
-	return buff;
+	return secured;
 }
