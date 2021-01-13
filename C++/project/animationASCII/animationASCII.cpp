@@ -7,6 +7,7 @@ using namespace std;
 
 int main()
 {
-	start();
+	Render PreRender();
+	PreRender.car();
 	return 0;
 }

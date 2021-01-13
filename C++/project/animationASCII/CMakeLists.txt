@@ -6,6 +6,6 @@ cmake_minimum_required (VERSION 3.8)
 project ("animationASCII")
 
 # Ajoutez une source à l'exécutable de ce projet.
-add_executable (animationASCII "animationASCII.cpp" "animationASCII.h" "render.h" "render.cpp")
+add_executable (animationASCII "animationASCII.cpp" "animationASCII.h" "Render.h" "Render.cpp")
 
 # TODO: Ajoutez des tests et installez des cibles si nécessaire.

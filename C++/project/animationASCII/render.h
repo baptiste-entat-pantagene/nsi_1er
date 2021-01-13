@@ -2,4 +2,11 @@
 #include <iostream>
 #include <string>
 
-void start(void);
+class Render
+{
+public:
+	void car(void);
+
+private:
+	int test = 0;
+};
