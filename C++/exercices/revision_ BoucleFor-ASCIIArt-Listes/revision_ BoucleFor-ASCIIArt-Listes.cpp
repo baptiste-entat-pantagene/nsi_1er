@@ -10,7 +10,6 @@ int inputInt(void);
 
 int main()
 {
-	cout << "start" << endl;
 
 	//fonction pour répéter les lettres de mots non implémenter dans le sélecteur de dessin,
 	//mis sous commentaire mais bien fonctionnelle...
@@ -22,7 +21,6 @@ int main()
 
 	string lstFx[6] = { "carre" ,"triangle", "triangleReverse", "triangleMiroire", "diagonale", "diagonalReverse" };
 	
-
 	int dessinX = 0, tailleDessinX = 0;
 	while (true)
 	{
