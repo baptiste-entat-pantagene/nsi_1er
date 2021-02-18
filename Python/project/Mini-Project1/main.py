@@ -12,8 +12,7 @@ class App(tkinter.Tk):
 
 
         self.mainFrame = Frame(self, borderwidth=2, relief=GROOVE)
-        #self.mainFrame.grid(column=0, row=0)
-        self.mainFrame.pack()
+        self.mainFrame.grid()
         self.createMenu(self.mainFrame)#créer le menu
         
         
@@ -23,8 +22,7 @@ class App(tkinter.Tk):
         
 
         self.VisualiseFrame = Frame(self.mainFrame)
-        self.VisualiseFrame.grid(column=0, row=1)
-        #self.VisualiseFrame.pack()
+        self.VisualiseFrame
         self.CreateVisualise()
         self.VisualiseFrame.grid_remove()
 
@@ -63,20 +61,21 @@ class App(tkinter.Tk):
 
 
     
-    def CreateVisualise(self):
-        #self.VisualiseFrame #use me
-        Label(self.VisualiseFrame, text="Visualise").grid(column=0, row=0) #title
+    def CreateVisualise(self):#self.VisualiseFrame #use me
+        #self.controlFrame = Frame(self.VisualiseFrame).grid(column=0, row=0)
+        Label(self.VisualiseFrame, text="Visualise", font=("Courier", 24, "italic")).grid(column=0, row=0) #title
         optionList = self.csvGest.getValueProj("Prenom") #get with csvGest(class csvGestion) list of name in proj
-        self.v = StringVar()
-        self.v.set(optionList[0])
-        self.om = OptionMenu(self.VisualiseFrame, self.v, *optionList).grid(column=0, row=1)
+        print("optionlIST", optionList)
+        self.nameStringVar = StringVar()
+        self.nameStringVar.set(optionList[0])
+        self.om = OptionMenu(self.VisualiseFrame, self.nameStringVar, *optionList).grid(column=0, row=2)
+        Button(self.VisualiseFrame, text="execute", command=partial(self.changeVisualise, self.nameStringVar)).grid(column=1, row=2)
 
         #graph
-        graph = Graph(self.VisualiseFrame)
+        self.graph = Graph(self.VisualiseFrame)
         #graph.createGraph(csvToGraphPts("id-1-notes.csv")) #old
-        graph.createGraph(self.csvGest.getValue(0, "math"))
-        print("csvvgest", self.csvGest.getValue(0, "math"))
-        graph.m_graph.grid(column=1, row=1)
+        self.graph.createGraph(self.csvGest.getValue(0, "math"))
+        self.graph.m_graph.grid(column=0, row=1)
 
 
     def goToAccueil(self):
@@ -87,8 +86,14 @@ class App(tkinter.Tk):
         self.accueilFrame.grid_remove()
         self.VisualiseFrame.grid()
         
+    def changeVisualise(self, nameVar):
+        newName = nameVar.get()
+        print("newName->", newName)
 
-    def createProjTree(self):
+        self.graph.createGraph(self.csvGest.getValue(self.csvGest.dictNametoId[newName], "math"))
+        self.graph.m_graph.grid(column=0, row=1)
+
+    def createProjTree(self): #future
         pass
 
 
@@ -100,7 +105,6 @@ class Graph():
         self.m_graph = Canvas(frame, width=self.m_w, height=self.m_h, background="#E4E4E4")
 
     def createGraph(self, pts) -> Canvas:
-        print(pts)
         multX = self.m_w/len(pts) #scale
         multY = self.m_h/20 #scale
         autoPts = []
@@ -110,10 +114,9 @@ class Graph():
             #buffX = self.m_w - buffX
             #buffY = self.m_h - buffY
             autoPts.append((buffY, buffX))
-        print("autoPts->", autoPts)
         
 
-        self.m_graph.create_line(autoPts, fill="#535353", smooth= False) #ligne
+        self.m_graph.create_line(autoPts, fill="#535353", smooth= True) #ligne
         
         #axe && annotation
         self.m_graph.create_text((15, 50), text="notes") #text
@@ -137,6 +140,15 @@ class csvGestion():
     def __init__(self) -> None:
         self.ProjPath = ""
         self.reader = csv.DictReader(open("proj.csv"), delimiter=";")
+        
+        buffReader = csv.DictReader(open("proj.csv"), delimiter=";")
+        self.dictNametoId = {} #by pass
+        self.dictIdToName = {} #by pass
+        for row in buffReader:
+            self.dictIdToName[row["id"]] = row["Prenom"]
+            self.dictNametoId[row["Prenom"]] = int(row["id"])
+        print(self.dictNametoId, "<-->" , self.dictIdToName)
+        
 
     def set(self, pathToProject) -> None:
         self.ProjPath = pathToProject
