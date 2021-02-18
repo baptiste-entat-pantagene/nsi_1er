@@ -1,3 +1,6 @@
-# nsi_1er
+# Nsi 1er
 
-Petite aide en NSI
+Ceci n'est pas vraiment une aide en nsi puisque pas grand-chose est expliqué mais un beau pot-pourriCeci n'est pas vraiment une aide en nsi puisque pas grand-chose est expliqué mais un beau pot-pourri
+
+## crédit:
+- Baptiste Entat
