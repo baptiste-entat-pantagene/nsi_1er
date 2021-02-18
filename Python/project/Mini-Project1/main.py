@@ -7,30 +7,27 @@ from typing import DefaultDict #tu set à quoi ?
 class App(tkinter.Tk):
     def __init__(self) -> None:
         tkinter.Tk.__init__(self)
-        
+
+        self.csvGest = csvGestion() #gestionnaire de csv
+
+
         self.mainFrame = Frame(self, borderwidth=2, relief=GROOVE)
         #self.mainFrame.grid(column=0, row=0)
         self.mainFrame.pack()
+        self.createMenu(self.mainFrame)#créer le menu
         
-        #créer le menu
-        self.createMenu(self.mainFrame)
+        
         self.accueilFrame = Frame(self.mainFrame)
         self.accueilFrame.grid(column=0, row=0)
-        self.accueilFrame.pack
         self.createAccueil(self.accueilFrame)
         
-        
 
+        self.VisualiseFrame = Frame(self.mainFrame)
+        self.VisualiseFrame.grid(column=0, row=1)
+        #self.VisualiseFrame.pack()
+        self.CreateVisualise()
+        self.VisualiseFrame.grid_remove()
 
-        """
-        self.graphFrame = Frame(self.mainFrame)
-        #self.graphFrame.grid(column=0, row=1)
-        self.graphFrame.pack()
-        
-        graph = Graph(self.graphFrame)
-        graph.createGraph(csvToGraphPts("id-1-notes.csv"))
-        graph.m_graph.pack()
-        """
     
     def createMenu(self, frame):
         #menu 0
@@ -38,18 +35,13 @@ class App(tkinter.Tk):
 
         #menu 1
         fileMenu = Menu(mainMenu, tearoff = 0)
-        fileMenu.add_command(label = "Open", command= self.load)
-        fileMenu.add_command(label = "Save", command= self.save)
+        fileMenu.add_command(label="Accueil", command= self.goToAccueil)
+        fileMenu.add_command(label="Visualise", command=self.goToVisualise)
         fileMenu.add_separator()
         fileMenu.add_command(label = "Exit", command= self.destroy)
         mainMenu.add_cascade(label="File", menu=fileMenu)
 
-        #menu 2
-        configMenu = Menu(mainMenu, tearoff= 0)
-        configMenu.add_command(label="Accueil", command= self.goToAccueil)
-        configMenu.add_command(label="Parametres", command=self.goToParametres)
-        mainMenu.add_cascade(label="Panel", menu=configMenu)
-        #final config
+
         self.config(menu = mainMenu)
 
     def save(self):
@@ -57,7 +49,8 @@ class App(tkinter.Tk):
 
     def load(self, projectPath):
         print("load...", projectPath.get())
-        self.csvGest = csvGestion(projectPath)
+        self.csvGest.set(projectPath)
+        self.goToVisualise()
     
     def createAccueil(self, frame):
         projectPath = StringVar()
@@ -69,11 +62,29 @@ class App(tkinter.Tk):
         Button(frame, text="Open Project", command=partial(self.load, projectPath)).grid(column=0, row=2)
 
 
-    def goToAccueil(self):
-        self.accueilFrame.grid(column=0, row=0)
+    
+    def CreateVisualise(self):
+        #self.VisualiseFrame #use me
+        Label(self.VisualiseFrame, text="Visualise").grid(column=0, row=0) #title
+        optionList = self.csvGest.getValueProj("Prenom") #get with csvGest(class csvGestion) list of name in proj
+        self.v = StringVar()
+        self.v.set(optionList[0])
+        self.om = OptionMenu(self.VisualiseFrame, self.v, *optionList).grid(column=0, row=1)
 
-    def goToParametres(self):
-        self.accueilFrame.grid_forget()
+        #graph
+        graph = Graph(self.VisualiseFrame)
+        graph.createGraph(csvToGraphPts("id-1-notes.csv"))
+        graph.m_graph.grid(column=1, row=1)
+
+
+    def goToAccueil(self):
+        self.VisualiseFrame.grid_remove()
+        self.accueilFrame.grid()
+
+    def goToVisualise(self):
+        self.accueilFrame.grid_remove()
+        self.VisualiseFrame.grid()
+        
 
     def createProjTree(self):
         pass
@@ -86,7 +97,7 @@ class Graph():
         self.m_h = 500
         self.m_graph = Canvas(frame, width=self.m_w, height=self.m_h, background="#E4E4E4")
 
-    def createGraph(self, pts):
+    def createGraph(self, pts) -> Canvas:
         print(pts)
         multX = self.m_w/len(pts)
         multY = self.m_h/len(pts)
@@ -97,7 +108,7 @@ class Graph():
 
         return self.m_graph
 
-#fx solo
+#fx solo -> move
 def csvToGraphPts(fileLocation:str):
     reader = csv.DictReader(open(fileLocation), delimiter=";")
     pts = []
@@ -111,10 +122,19 @@ def csvToGraphPts(fileLocation:str):
     return pts
 
 class csvGestion():
-    def __init__(self, PathToProject) -> None:
-        self.reader = csv.DictReader(open(PathToProject.get()), delimiter=";")
+    def __init__(self) -> None:
+        self.ProjPath = ""
+        self.reader = csv.DictReader(open("proj.csv"), delimiter=";")
+
+    def set(self, pathToProject) -> None:
+        self.ProjPath = pathToProject
+        self.reader = csv.DictReader(open(self.ProjPath.get()), delimiter=";")
+
+    def getValueProj(self, key:str) -> list:
+        buff = []
         for row in self.reader:
-            print(row)
+            buff.append(row[key])
+        return buff
 
 app = App()
 
