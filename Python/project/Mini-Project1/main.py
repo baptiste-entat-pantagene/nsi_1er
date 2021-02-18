@@ -87,6 +87,8 @@ class App(tkinter.Tk):
         self.VisualiseFrame.grid()
         
     def changeVisualise(self, nameVar):
+        self.graph.m_graph.destroy()
+        self.graph = Graph(self.VisualiseFrame)
         newName = nameVar.get()
         print("newName->", newName)
 
@@ -101,7 +103,7 @@ class App(tkinter.Tk):
 class Graph():
     def __init__(self, frame) -> None:
         self.m_w = 500
-        self.m_h = 500
+        self.m_h = 250
         self.m_graph = Canvas(frame, width=self.m_w, height=self.m_h, background="#E4E4E4")
 
     def createGraph(self, pts) -> Canvas:
@@ -119,7 +121,12 @@ class Graph():
         self.m_graph.create_line(autoPts, fill="#535353", smooth= True) #ligne
         
         #axe && annotation
-        self.m_graph.create_text((15, 50), text="notes") #text
+        self.m_graph.create_line((0, self.m_h/2), (self.m_w, self.m_h/2))
+        self.m_graph.create_line((self.m_w/2, 0), (self.m_w/2, self.m_h))
+        
+        self.m_graph.create_text((0+20, self.m_h/2+5), text="temps")
+        self.m_graph.create_text((self.m_w/2+15, 0+5), text="max") #approfondir
+        self.m_graph.create_text((self.m_w/2+15, self.m_h-5), text="min") #approfondir
 
         return self.m_graph
 
