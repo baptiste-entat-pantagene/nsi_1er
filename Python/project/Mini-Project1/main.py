@@ -73,7 +73,9 @@ class App(tkinter.Tk):
 
         #graph
         graph = Graph(self.VisualiseFrame)
-        graph.createGraph(csvToGraphPts("id-1-notes.csv"))
+        #graph.createGraph(csvToGraphPts("id-1-notes.csv")) #old
+        graph.createGraph(self.csvGest.getValue(0, "math"))
+        print("csvvgest", self.csvGest.getValue(0, "math"))
         graph.m_graph.grid(column=1, row=1)
 
 
@@ -99,17 +101,27 @@ class Graph():
 
     def createGraph(self, pts) -> Canvas:
         print(pts)
-        multX = self.m_w/len(pts)
-        multY = self.m_h/len(pts)
-        autoPts = [(x*multX, y*2) for x, y in pts]
-        self.m_graph.create_line(autoPts, fill="#535353", smooth= False)
-        #axe
-        self.m_graph.create_text((15, 50), text="notes")
+        multX = self.m_w/len(pts) #scale
+        multY = self.m_h/20 #scale
+        autoPts = []
+        for i in range(len(pts)):
+            buffX = i*(multX) #base
+            buffY = float(pts[i])*(multY) #base
+            #buffX = self.m_w - buffX
+            #buffY = self.m_h - buffY
+            autoPts.append((buffY, buffX))
+        print("autoPts->", autoPts)
+        
+
+        self.m_graph.create_line(autoPts, fill="#535353", smooth= False) #ligne
+        
+        #axe && annotation
+        self.m_graph.create_text((15, 50), text="notes") #text
 
         return self.m_graph
 
-#fx solo -> move
-def csvToGraphPts(fileLocation:str):
+
+def csvToGraphPts(fileLocation:str): #depreced!
     reader = csv.DictReader(open(fileLocation), delimiter=";")
     pts = []
     cout = 0
@@ -130,11 +142,22 @@ class csvGestion():
         self.ProjPath = pathToProject
         self.reader = csv.DictReader(open(self.ProjPath.get()), delimiter=";")
 
-    def getValueProj(self, key:str) -> list:
+    def getValueProj(self, key) -> list:
         buff = []
         for row in self.reader:
             buff.append(row[key])
         return buff
+    
+    def getSubLocation(self, id):
+        return "id-"+ str(id)+ "-notes"+ ".csv"
+
+    def getValue(self,id, key) -> list:
+        buffreader = csv.DictReader(open(self.getSubLocation(id)), delimiter=";")
+        buffList = []
+        for row in buffreader:
+            buffList.append(row[key])
+        return buffList
+    
 
 app = App()
 
