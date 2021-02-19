@@ -2,7 +2,7 @@ from tkinter import *
 from functools import partial
 import tkinter
 import csv
-from typing import DefaultDict #tu set à quoi ?
+import tkinter.font as tkFont
 
 class App(tkinter.Tk):
     def __init__(self) -> None:
@@ -68,7 +68,7 @@ class App(tkinter.Tk):
         print("optionlIST", optionList)
         self.nameStringVar = StringVar()
         self.nameStringVar.set(optionList[0])
-        self.om = OptionMenu(self.VisualiseFrame, self.nameStringVar, *optionList).grid(column=0, row=2)
+        self.optionMenu = OptionMenu(self.VisualiseFrame, self.nameStringVar, *optionList).grid(column=0, row=2)
         Button(self.VisualiseFrame, text="execute", command=partial(self.changeVisualise, self.nameStringVar)).grid(column=1, row=2)
 
         #graph
@@ -159,7 +159,10 @@ class csvGestion():
 
     def set(self, pathToProject) -> None:
         self.ProjPath = pathToProject
-        self.reader = csv.DictReader(open(self.ProjPath.get()), delimiter=";")
+        try:
+            self.reader = csv.DictReader(open(self.ProjPath.get()), delimiter=";") #try block didn't work
+        except:
+            print("!!->fu**ing false path to the project<-!!")
 
     def getValueProj(self, key) -> list:
         buff = []
