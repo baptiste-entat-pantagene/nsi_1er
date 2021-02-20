@@ -7,8 +7,8 @@ from AppWindow import *
 from DataManagement import *
 
 
-#application = AppWindow()
+application = AppWindow()
 
-dataMag = DataManagement("default-project")
+#dataMag = DataManagement("default-project")
 
-#application.mainloop()
+application.mainloop()

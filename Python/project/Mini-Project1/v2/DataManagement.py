@@ -73,3 +73,6 @@ class DataManagement():
 
         #create I don't know
         #future
+    
+    def AddUser(self) -> None: #please code me
+        pass
