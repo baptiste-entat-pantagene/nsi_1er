@@ -9,6 +9,6 @@ from DataManagement import *
 
 #application = AppWindow()
 
-dataMag = DataManagement("default-proj")
+dataMag = DataManagement("default-project")
 
 #application.mainloop()
