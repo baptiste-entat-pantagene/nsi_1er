@@ -68,11 +68,13 @@ class DataManagement():
         #create index.csv
         indexFlow = open(os.path.join(self.projectPath, "index.csv"), 'w')
         headerList = ["id", "surname", "firstName", "alias"]
-        writerFlow = csv.DictWriter(indexFlow, fieldnames=headerList)    
+        writerFlow = csv.DictWriter(indexFlow, fieldnames=headerList, delimiter=";")    
         writerFlow.writeheader()
 
         #create I don't know
         #future
     
-    def AddUser(self) -> None: #please code me
-        pass
+    def getIndex(self) -> None: #please code me
+        indexFlow = open(os.path.join(self.projectPath, "index.csv"), 'r')
+        readFlow = csv.DictReader(indexFlow, delimiter=";")
+        return readFlow.fieldnames

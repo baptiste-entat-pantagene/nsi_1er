@@ -8,7 +8,7 @@ from DataManagement import *
 
 
 application = AppWindow()
-
-#dataMag = DataManagement("default-project")
+dataMag = DataManagement("default-project")
+dataMag.getIndex()
 
 application.mainloop()
