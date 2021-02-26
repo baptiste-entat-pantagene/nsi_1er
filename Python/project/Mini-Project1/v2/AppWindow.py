@@ -113,6 +113,8 @@ class ViewSys():
     
     def addParam(self):
         self.headerIndex = ['id', 'surname', 'firstName', 'alias']
-        self.listEntryVar = [tk.StringVar]*len(self.headerIndex)
+        self.listEntryVar = [tk.StringVar()]*len(self.headerIndex)
         for i in range(len(self.headerIndex)):
-            tk.Entry(self.frame, textvariable=self.listEntryVar[i]).grid(column=0, row=0)
+            self.listEntryVar[i].set(self.headerIndex[i])
+            tk.Entry(self.frame, textvariable=self.listEntryVar[i]).grid(column=0, row=i)
+            print(".", self.listEntryVar[i].get())
