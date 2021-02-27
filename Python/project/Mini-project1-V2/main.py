@@ -123,8 +123,8 @@ def launchConsole(dataMethod):
         product1 = gateway.getProductInDump(dump=dump, number=0)
         buffMsg = ("We found a match for -> " + str(gateway.getProductFacts(product1, option=("name"))) + "\n     -> type 'yes' or 'no' for confirm product")
         
-        #confirmProduct = inputSecured(buffMsg, "bool")
-        confirmProduct = True #debug var
+        confirmProduct = inputSecured(buffMsg, "bool")
+        #confirmProduct = True #debug var
         if confirmProduct == True:
             cls()
             while True:

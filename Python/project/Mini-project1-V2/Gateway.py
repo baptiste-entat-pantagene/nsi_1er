@@ -105,7 +105,7 @@ class Gateway:
         elif self.requestMode == 1:
             if "name" in option == True:
                 buffReturn["name"] = (productDump["product_name"])
-            if "allergens_fr" in option:
+            if "ingredients" in option:
                 buffReturn["ingredients"] = (productDump["ingredients_text"])
         
         return buffReturn
