@@ -42,9 +42,9 @@ class Gateway:
         if self.requestMode == 0:
             #["product_name_en"]
             #generic_name_fr
-            return self.dump["product"]["product_name_fr"]
+            return self.dump
         elif self.requestMode == 1:
-            return self.dump["product_name"]
+            return self.dump
 
     def requestName(self, productName):
         if self.requestMode == 0:
@@ -76,13 +76,18 @@ class Gateway:
             if "products" in dump:
                 return dump["products"]
             elif "product" in dump:
-                return dump["products"]
+                return dump["product"]
+            else:
+                return dump
         elif self.requestMode == 1:
             return dump #no need for modification(already only one article)
     
-    def getProductInDump(self, dump=None, number=0):
+    def getProductInDump(self, dump, number=0):
         if self.requestMode == 0:
-            return dump[number]
+            try:
+                return dump[number]
+            except:
+                return dump
         elif self.requestMode == 1:
             return dump #there is already only one article
     
