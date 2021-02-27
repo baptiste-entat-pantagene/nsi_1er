@@ -57,7 +57,6 @@ while True:
         break
     elif answer == 1:
         selectedDisplaySystem = 1
-        raise NotImplementedError()
         break
     else:
         print("Please retry")
@@ -157,7 +156,10 @@ def launchConsole(dataMethod):
         break #after please destroy me !
 
 def launchDisplay(dataMethod):
-    raise NotImplementedError()
+    import window
+    app = window.Application()
+    app.mainloop()
+
 
 if selectedDisplaySystem == 0:
     launchConsole(dataMethod)
