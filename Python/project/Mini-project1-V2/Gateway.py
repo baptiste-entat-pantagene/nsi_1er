@@ -28,7 +28,7 @@ class Gateway:
             #verifie l'existence de l'id
             stat = self.dump["status_verbose"]
             if stat != "product found":
-                raise NameError()
+                raise NameError("id not found !")
 
         elif self.requestMode == 1:
             print("search in progress, in local mode(search in the csv file) it can take a long time...")
@@ -39,24 +39,58 @@ class Gateway:
             if self.dump == None:
                 raise ValueError
             
-
         if self.requestMode == 0:
             #["product_name_en"]
             #generic_name_fr
-            print(self.dump)
-            print("name ->", self.dump["product"]["product_name_fr"])
+            return self.dump["product"]["product_name_fr"]
         elif self.requestMode == 1:
-            print("name ->", self.dump["product_name"])
+            return self.dump["product_name"]
 
-    def requestName(self, name):
+    def requestName(self, productName):
         if self.requestMode == 0:
-            urlTest = "https://fr-en.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=breakfast_cereals&tagtype_1=nutrition_grades&tag_contains_1=contains&tag_1=A&additives=without&ingredients_from_palm_oil=without&json=true'"
-            #url = 'https://fr-en.openfoodfacts.org/api/v0/product/' + str(productId) + '.json'
-            getRequests = requests.get(urlTest)
-            
-            #https://global.openfoodfacts.org
+            #urlTest = "https://fr-en.openfoodfacts.org/cgi/search.pl?search_terms=nutella&search_simple=1&action=process&json=true"
+            url = 'https://fr-en.openfoodfacts.org/cgi/search.pl?search_terms=' + str(productName) + '&search_simple=1&action=process&json=true'
+            getRequests = requests.get(url)
             self.dump = getRequests.json()
-            print(self.dump)
+            return self.dump
+        elif self.requestMode == 1:
+            print("search in progress, in local mode(search in the csv file) it can take a long time...")
+            for row in self.locaReader:
+                if row["product_name"] == productName:
+                    self.dump = row
+                    return self.dump
+            raise ValueError()
 
 
+    def cleanDump(self, dump=None):
+        """
+        if dump==None -> use the last dump
+        """
+        if dump == None:
+            if self.dump == None:
+                raise NotImplementedError("please initialize dump before clean dump")
+            else:
+                dump = self.dump
 
+        if self.requestMode == 0:
+            if "products" in dump:
+                return dump["products"]
+            elif "product" in dump:
+                return dump["products"]
+        elif self.requestMode == 1:
+            return dump #no need for modification(already only one article)
+    
+    def getProductInDump(self, dump=None, number=0):
+        if self.requestMode == 0:
+            return dump[number]
+        elif self.requestMode == 1:
+            return dump #there is already only one article
+    
+    def getProductFacts(self, ProductDump, name=None):
+        if self.requestMode == 0:
+            if name == True:
+                return ProductDump["product_name_fr"]
+
+        elif self.requestMode == 1:
+            if name == True:
+                return ProductDump["product_name"]

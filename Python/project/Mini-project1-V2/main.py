@@ -37,7 +37,7 @@ def inputSecured(msg:str, returnType:str):
 selectedDisplaySystem = 0
 dataMethod = 0
 
-"""
+
 #select display system
 while True:
     print("--> Start <--")
@@ -57,7 +57,7 @@ while True:
 cls()
 #select request mode
 while True:
-    answer = inputSecured(msg="Select the request data system\n  Online -> 00 (need some library)\n  Off-line -> 1 (need a large csv file -> not on github)", returnType="int")
+    answer = inputSecured(msg="Select the request data system\n  Online -> 0 (need some library)\n  Off-line -> 1 (need a large csv file -> not on github)", returnType="int")
     if answer == 0:
         #check si les dépendence existe
         dirList_BasePath = os.listdir(os.getcwd())
@@ -88,14 +88,14 @@ while True:
         print("Please retry")
         continue
 cls()
-"""
+
 
 def launchConsole(dataMethod):
     gateway = Gateway.Gateway(requestMethod=dataMethod)
     cls()
     while True:
-        #print("select action\n    0 -> requestID\n    1 -> ?")
-        event = inputSecured("select action\n    0 -> request ID\n    1 -> request name (generique)", "int")
+        event = inputSecured("select action\n    0 -> request ID\n    1 -> request name (generique)\n   -1 -> exit", "int")
+        #event=1 #debug var
 
         if event == 0:
             cls()
@@ -106,9 +106,19 @@ def launchConsole(dataMethod):
         elif event == 1:
             cls()
             name = inputSecured("type the name", "str")
-            gateway.requestName(name)
+            #name = "nutella" #debug var
+            
+            dump = gateway.requestName(productName=name)
+            dump = gateway.cleanDump(dump=dump)
+            product1 = gateway.getProductInDump(dump=dump, number=0)
+            print("We found a match for ->", gateway.getProductFacts(product1, name=True))
+
+        elif event == -1:
+            print(" ▄▄▄▄    ▄▄▄      ▓██   ██▓\n▓█████▄ ▒████▄     ▒██  ██▒\n▒██▒ ▄██▒██  ▀█▄    ▒██ ██░\n▒██░█▀  ░██▄▄▄▄██   ░ ▐██▓░\n░▓█  ▀█▓ ▓█   ▓██▒  ░ ██▒▓░\n░▒▓███▀▒ ▒▒   ▓▒█░   ██▒▒▒")
+            exit()
         else:
             continue
+        break #after please destroy me !
 
 def launchDisplay(dataMethod):
     raise NotImplementedError()
