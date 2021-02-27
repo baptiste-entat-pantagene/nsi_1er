@@ -91,11 +91,22 @@ class Gateway:
         elif self.requestMode == 1:
             return dump #there is already only one article
     
-    def getProductFacts(self, ProductDump, name=None):
+    def getProductFacts(self, productDump, option=(None)):
+        """
+        option = ("name", "ingredients")
+        """
+        buffReturn = {}
         if self.requestMode == 0:
-            if name == True:
-                return ProductDump["product_name_fr"]
+            if "name" in option:
+                buffReturn["name"] = (productDump["product_name_fr"])
+            if "ingredients" in option:
+                buffReturn["ingredients"] = (productDump["ingredients_text_fr"])
 
         elif self.requestMode == 1:
-            if name == True:
-                return ProductDump["product_name"]
+            if "name" in option == True:
+                buffReturn["name"] = (productDump["product_name"])
+            if "allergens_fr" in option:
+                buffReturn["ingredients"] = (productDump["ingredients_text"])
+        
+        return buffReturn
+            

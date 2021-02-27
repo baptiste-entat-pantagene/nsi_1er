@@ -46,7 +46,7 @@ def inputSecured(msg, returnType:str):
 selectedDisplaySystem = 0
 dataMethod = 0
 
-"""
+
 #select display system
 while True:
     print("--> Start <--")
@@ -98,42 +98,49 @@ while True:
         print("Please retry")
         continue
 cls()
-"""
+
 
 def launchConsole(dataMethod):
     gateway = Gateway.Gateway(requestMethod=dataMethod)
     cls()
     while True:
-        #event = inputSecured("select action\n    0 -> request ID\n    1 -> request name (generique)\n   -1 -> exit", "int")
-        event=0 #debug var
-        dump = gateway.requestID("3017620425035") #id
+        event = inputSecured("select action\n    0 -> request ID\n    1 -> request name (generique)\n   -1 -> exit", "int")
+        #event=0 #debug var
+        global dump
         if event == 0:
             cls()
-            #id = inputSecured("type the id of product", "str")
-            dump = gateway.requestID("3017620425035") #id
+            id = inputSecured("type the id of product", "str")
+            dump = gateway.requestID(id) #id
             #3017620425035 #nutella
             #000000001576 #quik test
             #0000000001199 #quik test
         elif event == 1:
             cls()
-            #name = inputSecured("type the name", "str")
-            name = "nutella" #debug var
+            name = inputSecured("type the name", "str")
+            #name = "nutella" #debug var
             dump = gateway.requestName(productName=name)
 
         dump = gateway.cleanDump(dump=dump)
         product1 = gateway.getProductInDump(dump=dump, number=0)
-        buffMsg = ("We found a match for -> " + str(gateway.getProductFacts(product1, name=True)) + "\n     -> type 'yes' or 'no' for confirm product")
+        buffMsg = ("We found a match for -> " + str(gateway.getProductFacts(product1, option=("name"))) + "\n     -> type 'yes' or 'no' for confirm product")
         
         #confirmProduct = inputSecured(buffMsg, "bool")
         confirmProduct = True #debug var
         if confirmProduct == True:
             cls()
             while True:
-                select = inputSecured("Select facts\n     0 -> name\n     -1 -> most important data", returnType="int")
+                select = inputSecured("Select facts\n    0 -> name\n    1 -> ingredients\n   -1 -> most important data\n   -2 -> full dump", returnType="int")
                 if select == 0:
-                    print("product name -->", gateway.getProductFacts(product1, name=True))
+                    print("product name -->", gateway.getProductFacts(product1, option=("name")))
+                elif select == 1:
+                    print("product ingredients -->", gateway.getProductFacts(product1, option=("ingredients")))
                 elif select == -1:
-                    print("product name -->", gateway.getProductFacts(product1, name=True))
+                    print("product important data -->", gateway.getProductFacts(product1, option=("name", "ingredient")))
+                elif select == -2:
+                    buff = dump
+                    print("\nfull dump-->")
+                    print(buff, flush=True)
+                    print("\n<--\n")
                 else:
                     print("Please retry")
                     continue
