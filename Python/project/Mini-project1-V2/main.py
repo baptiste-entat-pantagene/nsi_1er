@@ -15,11 +15,12 @@ def inputSecured(msg, returnType:str):
     """
     returnType: "int", "str", "bool"(yes/no)
     """
+    #isspace() #rajoute moi 
     while True:
         print(msg)
         buff = input()
 
-        if returnType == "int":
+        if returnType == "int": #int
             if buff == "":
                 continue
             try:
@@ -27,16 +28,16 @@ def inputSecured(msg, returnType:str):
             except:
                 continue
             return int(buff)
-        elif returnType == "str":
+        elif returnType == "str": #str
             if buff == "":
                 continue
             return buff
-        elif returnType == "bool":
+        elif returnType == "bool": #bool
             if buff == "":
                 continue
-            elif buff == "yes":
+            elif buff == "yes" or buff == "y" or buff == "Y":
                 return True
-            elif buff == "no":
+            elif buff == "no" or buff == "n" or buff == "N":
                 return False
         else:
             raise NotImplementedError()
@@ -46,7 +47,7 @@ def inputSecured(msg, returnType:str):
 selectedDisplaySystem = 0
 dataMethod = 0
 
-
+""" #testing
 #select display system
 while True:
     print("--> Start <--")
@@ -61,7 +62,7 @@ while True:
     else:
         print("Please retry")
         continue
-
+"""
 cls()
 #select request mode
 while True:
@@ -119,33 +120,46 @@ def launchConsole(dataMethod):
             #name = "nutella" #debug var
             dump = gateway.requestName(productName=name)
 
-        dump = gateway.cleanDump(dump=dump)
-        product1 = gateway.getProductInDump(dump=dump, number=0)
-        buffMsg = ("We found a match for -> " + str(gateway.getProductFacts(product1, option=("name"))) + "\n     -> type 'yes' or 'no' for confirm product")
-        
-        confirmProduct = inputSecured(buffMsg, "bool")
-        #confirmProduct = True #debug var
-        if confirmProduct == True:
+            dump = gateway.cleanDump(dump=dump)
+            #product1 = gateway.getProductInDump(dump=dump, number=0) #supp me
+
+            #select one product in dump
+            print("We found a match for : ")
+            lenListProductDump = 3
+            for i in range(0, lenListProductDump):
+                productN = gateway.getProductInDump(dump=dump, number=i)
+                print("     ", i, "->" + str(gateway.getProductFacts(productN, option=("name"))))
+
+            buffMsg = ("Select your product." + "\n     -> type is number for select product") #superfluous buff
+            productN = inputSecured(buffMsg, "int")
+            if int(productN) < 0 or int(productN) >= lenListProductDump:
+                raise ValueError() #make it pretty
+            selectedProduct = gateway.getProductInDump(dump, number=productN)
+
+
             cls()
             while True:
-                select = inputSecured("Select facts\n    0 -> name\n    1 -> ingredients\n   -1 -> most important data\n   -2 -> full dump", returnType="int")
-                if select == 0:
-                    print("product name -->", gateway.getProductFacts(product1, option=("name")))
-                elif select == 1:
-                    print("product ingredients -->", gateway.getProductFacts(product1, option=("ingredients")))
-                elif select == -1:
-                    print("product important data -->", gateway.getProductFacts(product1, option=("name", "ingredient")))
-                elif select == -2:
+                optionInside = ("all", "name", "ingredients", "code", "ecoscore_score", "ecoscore_grade","nutriscore_grade", "stores", "packaging", "quantity", "brands", "labels")
+                buffMsg = ""
+                for i in range(len(optionInside)):
+                    buffMsg += ("   \n  " + str(i) + " -> " + str(optionInside[i]))
+                buffMsg += "\n  -1 -> full dump"
+                select = inputSecured(buffMsg, returnType="int")
+                if int(select) < 0 or int(select) >= len(optionInside):
+                    if int(select) != -1:
+                        raise ValueError() #make it pretty
+
+                for i in range(len(optionInside)):
+                    if select == i:
+                        print(optionInside[i] ," --> ", gateway.getProductFacts(selectedProduct, option=(optionInside[i])))
+
+                if select == -1:
                     buff = dump
                     print("\nfull dump-->")
                     print(buff, flush=True)
                     print("\n<--\n")
-                else:
-                    print("Please retry")
-                    continue
 
-        elif confirmProduct == False:
-            print("aaaaaahhh")
+
 
 
         elif event == -1:
@@ -153,9 +167,9 @@ def launchConsole(dataMethod):
             exit()
         else:
             continue
-        break #after please destroy me !
+            break #after please destroy me !
 
-def launchDisplay(dataMethod):
+def launchDisplay(dataMethod): #testing
     import window
     app = window.Application()
     app.mainloop()
@@ -163,7 +177,7 @@ def launchDisplay(dataMethod):
 
 if selectedDisplaySystem == 0:
     launchConsole(dataMethod)
-elif selectedDisplaySystem == 1:
+elif selectedDisplaySystem == 1: #testing
     launchDisplay(dataMethod)
 
 print("End of session")

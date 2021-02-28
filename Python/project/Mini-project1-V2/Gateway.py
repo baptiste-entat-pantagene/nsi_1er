@@ -53,19 +53,24 @@ class Gateway:
             getRequests = requests.get(url)
             self.dump = getRequests.json()
             return self.dump
+
         elif self.requestMode == 1:
             print("search in progress, in local mode(search in the csv file) it can take a long time...")
+            self.dump = []
+            count = 0
+            #.find("welcome")
             for row in self.locaReader:
-                if row["product_name"] == productName:
-                    self.dump = row
+                if (row["product_name"].find(productName) != -1 or row["product_name"].find(productName.capitalize()) != -1 ):
+                    count += 1
+                    self.dump.append(row)
+
+                if count >= 3:
                     return self.dump
+            #return self.dump
             raise ValueError()
 
 
-    def cleanDump(self, dump=None):
-        """
-        if dump==None -> use the last dump
-        """
+    def cleanDump(self, dump):
         if dump == None:
             if self.dump == None:
                 raise NotImplementedError("please initialize dump before clean dump")
@@ -89,24 +94,53 @@ class Gateway:
             except:
                 return dump
         elif self.requestMode == 1:
-            return dump #there is already only one article
+            return dump[number]
     
     def getProductFacts(self, productDump, option=(None)):
         """
-        option = ("name", "ingredients")
+        for onligne:
+            option = ("all", "name", "ingredients", "code", "ecoscore_score", "ecoscore_grade",\n
+            "nutriscore_grade", "stores", "packaging", "quantity", "brands", "labels")
+        for of-ligne:
+            option = ("all", "name", "ingredients", "code")
+
+        implementation in progress:
+            None
         """
+        #print("debug productDump -->", productDump)
         buffReturn = {}
         if self.requestMode == 0:
-            if "name" in option:
-                buffReturn["name"] = (productDump["product_name_fr"])
-            if "ingredients" in option:
-                buffReturn["ingredients"] = (productDump["ingredients_text_fr"])
+            if "name" in option or "all" in option:
+                buffReturn["name"] = productDump["product_name_fr"]
+            if "code" in option or "all" in option:
+                buffReturn["code"] = productDump["code"]
+            if "ingredients" in option or "all" in option:
+                buffReturn["ingredients"] = productDump["ingredients_text_fr"]
+            if "ecoscore_score" in option or "all" in option:
+                buffReturn["ecoscore_score"] = productDump["ecoscore_data"]["score"]
+            if "ecoscore_grade" in option or "all" in option:
+                buffReturn["ecoscore_grade"] = productDump["ecoscore_data"]["grade"]
+            if "nutriscore_grade" in option or "all" in option:
+                buffReturn["nutriscore_grade"] = productDump["nutriscore_grade"]
+            if "stores" in option or "all" in option:
+                buffReturn["stores"] = productDump["stores"]
+            if "packaging" in option or "all" in option:
+                buffReturn["packaging"] = productDump["packaging"]
+            if "brands" in option or "all" in option:
+                buffReturn["brands"] = productDump["brands"]
+            if "labels" in option or "all" in option:
+                buffReturn["labels"] = productDump["labels"]
+            if "quantity" in option or "all" in option:
+                buffReturn["quantity"] = productDump["quantity"]
+            
+            
 
         elif self.requestMode == 1:
-            if "name" in option == True:
-                buffReturn["name"] = (productDump["product_name"])
-            if "ingredients" in option:
-                buffReturn["ingredients"] = (productDump["ingredients_text"])
+            if "name" in option or "all" in option:
+                buffReturn["name"] = productDump["product_name"]
+            if "code" in option or "all" in option:
+                buffReturn["code"] = productDump["code"]
+            if "ingredients" in option or "all" in option:
+                buffReturn["ingredients"] = productDump["ingredients_text"]
         
         return buffReturn
-            
