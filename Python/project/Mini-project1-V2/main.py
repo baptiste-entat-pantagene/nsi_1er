@@ -47,7 +47,7 @@ def baybay():
     exit()
 
 
-selectedDisplaySystem = 0
+selectedDisplaySystem = 1
 dataMethod = 0
 
 """ #testing
@@ -172,6 +172,8 @@ def launchConsole(dataMethod):
 
 
 def launchDisplay(dataMethod): #just testing
+    gateway = Gateway.Gateway(requestMethod=dataMethod)
+    cls()
     import window
     app = window.Application()
     app.mainloop()
@@ -180,6 +182,7 @@ def launchDisplay(dataMethod): #just testing
 if selectedDisplaySystem == 0:
     launchConsole(dataMethod)
 elif selectedDisplaySystem == 1: #just testing
+    #raise NotImplementedError("reserved for dev")
     launchDisplay(dataMethod)
 
 print("End of session")
