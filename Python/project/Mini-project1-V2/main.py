@@ -158,8 +158,10 @@ def launchConsole(dataMethod):
                     print("Value error, retry")
                     continue
             for i in range(len(optionInside)):
-                if select == i:
-                    print(optionInside[i] ," --> ", gateway.getProductFacts(selectedProduct, option=(optionInside[i])))
+                if select == i and select != 0:
+                    print("     ", optionInside[i] ," --> ", gateway.getProductFacts(selectedProduct, option=(optionInside[i]))[optionInside[i]])
+                if select == 0:
+                    print("     ", optionInside[i] ," --> ", gateway.getProductFacts(selectedProduct, option=(optionInside[i])))
             if select == -1:
                 buff = dump
                 print("\nfull dump-->")
