@@ -42,6 +42,9 @@ def inputSecured(msg, returnType:str):
         else:
             raise NotImplementedError()
 
+def baybay():
+    print(" ▄▄▄▄    ▄▄▄      ▓██   ██▓\n▓█████▄ ▒████▄     ▒██  ██▒\n▒██▒ ▄██▒██  ▀█▄    ▒██ ██░\n▒██░█▀  ░██▄▄▄▄██   ░ ▐██▓░\n░▓█  ▀█▓ ▓█   ▓██▒  ░ ██▒▓░\n░▒▓███▀▒ ▒▒   ▓▒█░   ██▒▒▒")
+    exit()
 
 
 selectedDisplaySystem = 0
@@ -66,7 +69,8 @@ while True:
 cls()
 #select request mode
 while True:
-    answer = inputSecured(msg="Select the request data system\n  Online -> 0 (need some library)\n  Off-line -> 1 (need a large csv file -> not on github)", returnType="int")
+    print("Use the online mode to get the full potential of the App")
+    answer = inputSecured(msg="Select the request data system\n  0 -> Online (need some library)\n  1 -> Off-line (need a large csv file -> not on github)\n -1 -> Exit", returnType="int")
     if answer == 0:
         #check si les dépendences existe
         dirList_BasePath = os.listdir(os.getcwd())
@@ -94,6 +98,8 @@ while True:
         print("Successful selction of the off-line mode")
         dataMethod = 1
         break
+    elif answer == -1:
+        baybay()
     else:
         print("Please retry")
         continue
@@ -111,6 +117,7 @@ def launchConsole(dataMethod):
             cls()
             id = inputSecured("type the id of product", "str")
             dump = gateway.requestID(id) #id
+            dump = gateway.cleanDump(dump=dump)
             #3017620425035 #nutella
             #000000001576 #quik test
             #0000000001199 #quik test
@@ -119,57 +126,50 @@ def launchConsole(dataMethod):
             name = inputSecured("type the name", "str")
             #name = "nutella" #debug var
             dump = gateway.requestName(productName=name)
-
             dump = gateway.cleanDump(dump=dump)
-            #product1 = gateway.getProductInDump(dump=dump, number=0) #supp me
 
-            #select one product in dump
+        elif event == -1:
+            baybay()
+        else:
+            continue
+
+        #select one product in dump
+        while True:
             print("We found a match for : ")
             lenListProductDump = 3
             for i in range(0, lenListProductDump):
                 productN = gateway.getProductInDump(dump=dump, number=i)
                 print("     ", i, "->" + str(gateway.getProductFacts(productN, option=("name"))))
-
-            buffMsg = ("Select your product." + "\n     -> type is number for select product") #superfluous buff
-            productN = inputSecured(buffMsg, "int")
+            productN = inputSecured("Select your product.\n     -> type is number for select product", "int")
             if int(productN) < 0 or int(productN) >= lenListProductDump:
-                raise ValueError() #make it pretty
-            selectedProduct = gateway.getProductInDump(dump, number=productN)
-
-
-            cls()
-            while True:
-                optionInside = ("all", "name", "ingredients", "code", "ecoscore_score", "ecoscore_grade","nutriscore_grade", "stores", "packaging", "quantity", "brands", "labels")
-                buffMsg = ""
-                for i in range(len(optionInside)):
-                    buffMsg += ("   \n  " + str(i) + " -> " + str(optionInside[i]))
-                buffMsg += "\n  -1 -> full dump"
-                select = inputSecured(buffMsg, returnType="int")
-                if int(select) < 0 or int(select) >= len(optionInside):
-                    if int(select) != -1:
-                        raise ValueError() #make it pretty
-
-                for i in range(len(optionInside)):
-                    if select == i:
-                        print(optionInside[i] ," --> ", gateway.getProductFacts(selectedProduct, option=(optionInside[i])))
-
-                if select == -1:
-                    buff = dump
-                    print("\nfull dump-->")
-                    print(buff, flush=True)
-                    print("\n<--\n")
+                continue
+            break
+        selectedProduct = gateway.getProductInDump(dump, number=productN)
+        cls()
+        while True:
+            optionInside = ("all", "name", "ingredients", "code", "ecoscore_score", "ecoscore_grade","nutriscore_grade", "stores", "packaging", "quantity", "brands", "labels")
+            buffMsg = ""
+            for i in range(len(optionInside)):
+                buffMsg += ("   \n  " + str(i) + " -> " + str(optionInside[i]))
+            buffMsg += "\n  -1 -> full dump"
+            select = inputSecured(buffMsg, returnType="int")
+            if int(select) < 0 or int(select) >= len(optionInside):
+                if int(select) != -1:
+                    print("Value error, retry")
+                    continue
+            for i in range(len(optionInside)):
+                if select == i:
+                    print(optionInside[i] ," --> ", gateway.getProductFacts(selectedProduct, option=(optionInside[i])))
+            if select == -1:
+                buff = dump
+                print("\nfull dump-->")
+                print(buff, flush=True)
+                print("\n<--\n")
 
 
 
 
-        elif event == -1:
-            print(" ▄▄▄▄    ▄▄▄      ▓██   ██▓\n▓█████▄ ▒████▄     ▒██  ██▒\n▒██▒ ▄██▒██  ▀█▄    ▒██ ██░\n▒██░█▀  ░██▄▄▄▄██   ░ ▐██▓░\n░▓█  ▀█▓ ▓█   ▓██▒  ░ ██▒▓░\n░▒▓███▀▒ ▒▒   ▓▒█░   ██▒▒▒")
-            exit()
-        else:
-            continue
-            break #after please destroy me !
-
-def launchDisplay(dataMethod): #testing
+def launchDisplay(dataMethod): #just testing
     import window
     app = window.Application()
     app.mainloop()
@@ -177,7 +177,7 @@ def launchDisplay(dataMethod): #testing
 
 if selectedDisplaySystem == 0:
     launchConsole(dataMethod)
-elif selectedDisplaySystem == 1: #testing
+elif selectedDisplaySystem == 1: #just testing
     launchDisplay(dataMethod)
 
 print("End of session")

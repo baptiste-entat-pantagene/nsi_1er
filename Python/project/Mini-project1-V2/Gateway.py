@@ -77,7 +77,7 @@ class Gateway:
             else:
                 dump = self.dump
 
-        if self.requestMode == 0:
+        if self.requestMode == 0: #please clean it !
             if "products" in dump:
                 return dump["products"]
             elif "product" in dump:
