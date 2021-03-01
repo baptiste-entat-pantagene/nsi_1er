@@ -111,7 +111,10 @@ class Gateway:
         buffReturn = {}
         if self.requestMode == 0:
             if "name" in option or "all" in option:
-                buffReturn["name"] = productDump["product_name_fr"]
+                try:
+                    buffReturn["name"] = productDump["product_name_fr"]
+                except:
+                    buffReturn["name"] = "erreur"
             if "code" in option or "all" in option:
                 buffReturn["code"] = productDump["code"]
             if "ingredients" in option or "all" in option:

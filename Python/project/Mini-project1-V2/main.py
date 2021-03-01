@@ -47,10 +47,9 @@ def baybay():
     exit()
 
 
-selectedDisplaySystem = 1
+selectedDisplaySystem = 0
 dataMethod = 0
-
-""" #testing
+#testing
 #select display system
 while True:
     print("--> Start <--")
@@ -65,48 +64,48 @@ while True:
     else:
         print("Please retry")
         continue
-"""
-cls()
-#select request mode
-while True:
-    print("Use the online mode to get the full potential of the App")
-    answer = inputSecured(msg="Select the request data system\n  0 -> Online (need some library)\n  1 -> Off-line (need a large csv file -> not on github)\n -1 -> Exit", returnType="int")
-    if answer == 0:
-        #check si les dépendences existe
-        dirList_BasePath = os.listdir(os.getcwd())
-        if "requests" not in dirList_BasePath:
-            raise NotADirectoryError("We need requests module")
-        elif "urllib3" not in dirList_BasePath:
-            raise NotADirectoryError("We need urllib3 module")
-        elif "chardet" not in dirList_BasePath:
-            raise NotADirectoryError("We need chardet module")
-        elif "certifi" not in dirList_BasePath:
-            raise NotADirectoryError("We need certifi module")
-        elif "idna" not in dirList_BasePath:
-            raise NotADirectoryError("We need idna module")
-
-        print("Successful selection of the online mode")
-        dataMethod = 0
-        break
-     
-    elif answer == 1:
-        #check si la dépendence existe
-        dirList_BasePath = os.listdir(os.getcwd())
-        if "fr-openfoodfacts-org-products.csv" not in dirList_BasePath:
-            raise NotADirectoryError("We need fr-openfoodfacts-org-products.csv file")
-
-        print("Successful selction of the off-line mode")
-        dataMethod = 1
-        break
-    elif answer == -1:
-        baybay()
-    else:
-        print("Please retry")
-        continue
-cls()
 
 
 def launchConsole(dataMethod):
+    cls()
+    #select request mode
+    while True:
+        print("Use the online mode to get the full potential of the App")
+        answer = inputSecured(msg="Select the request data system\n  0 -> Online (need some library)\n  1 -> Off-line (need a large csv file -> not on github)\n -1 -> Exit", returnType="int")
+        if answer == 0:
+            #check si les dépendences existe
+            dirList_BasePath = os.listdir(os.getcwd())
+            if "requests" not in dirList_BasePath:
+                raise NotADirectoryError("We need requests module")
+            elif "urllib3" not in dirList_BasePath:
+                raise NotADirectoryError("We need urllib3 module")
+            elif "chardet" not in dirList_BasePath:
+                raise NotADirectoryError("We need chardet module")
+            elif "certifi" not in dirList_BasePath:
+                raise NotADirectoryError("We need certifi module")
+            elif "idna" not in dirList_BasePath:
+                raise NotADirectoryError("We need idna module")
+
+            print("Successful selection of the online mode")
+            dataMethod = 0
+            break
+        
+        elif answer == 1:
+            #check si la dépendence existe
+            dirList_BasePath = os.listdir(os.getcwd())
+            if "fr-openfoodfacts-org-products.csv" not in dirList_BasePath:
+                raise NotADirectoryError("We need fr-openfoodfacts-org-products.csv file")
+
+            print("Successful selction of the off-line mode")
+            dataMethod = 1
+            break
+        elif answer == -1:
+            baybay()
+        else:
+            print("Please retry")
+            continue
+    cls()
+
     gateway = Gateway.Gateway(requestMethod=dataMethod)
     cls()
     while True:
