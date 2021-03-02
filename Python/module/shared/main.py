@@ -1,7 +1,7 @@
 import common
 
 
-print("type please")
-var = common.entry(returnType="bool", failureMsg="faillut msg", blackList=["yes"])
+print("type please 1 caract")
+var = common.entry(returnType="char", )
 print("-->", var)
 
