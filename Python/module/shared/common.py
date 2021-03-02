@@ -4,68 +4,93 @@
 - Entat Baptiste
 """
 import os
+from typing import Union
 
 
-def entry(returnType:str, failureMsg:str="", debugValue=None):
+#entry section
+def entry(returnType: str,
+          failureMsg: str = "",
+          blackList=["", "isspace()"]) -> Union[int, str, bool]:
     """
-    - returnType -> "int", "str", "bool"(yes/no)
+    # entry
+    returnType -> "int", "str", "bool"
+    failureMsg -> 
+    blackList -> illegal char, "isspace()" -> all space
+    - int ->
+    - str ->
+    - bool -> "yes" "y" "Y" "oui" "Oui"; "no" "n" "N" "non" "Non"
     """
     if returnType != "int" and returnType != "str" and returnType != "bool":
         raise NotImplementedError("returnType specified are not implemented")
     while True:
-        if debugValue != None:
-            buff = debugValue
-        else:
-            buff = input()
+        check = True
+        buff = input()
         if returnType == "int":  #int
-            if buff == "":
-                if debugValue != None:
-                    return "debugError"
-                print(failureMsg)
+            for char in blackList:  #Check black list
+                if char == "isspace()":
+                    if buff.isspace() == True:
+                        print(failureMsg)
+                        check = False
+                        break
+                else:
+                    if buff == char:
+                        print(failureMsg)
+                        check = False
+                        break
+            if check == False:
                 continue
             try:
                 int(buff)
             except:
-                if debugValue != None:
-                    return "debugError"
                 print(failureMsg)
                 continue
             return int(buff)
         elif returnType == "str":  #str
-            if buff == "" or buff.isspace() == True:
-                if debugValue != None:
-                    return "debugError"
-                print(failureMsg)
+            for char in blackList:  #Check black list
+                if char == "isspace()":
+                    if buff.isspace() == True:
+                        print(failureMsg)
+                        check = False
+                        break
+                else:
+                    if buff == char:
+                        print(failureMsg)
+                        check = False
+                        break
+            if check == False:
                 continue
-            return buff
+            else:
+                return buff
         elif returnType == "bool":  #bool
-            if buff == "":
-                if debugValue != None:
-                    return "debugError"
-                print(failureMsg)
+            for char in blackList:  #Check black list
+                print("debug char ->", char)
+                if char == "isspace()":
+                    if buff.isspace() == True:
+                        print(failureMsg)
+                        check = False
+                        break
+                else:
+                    if buff == char:
+                        print(failureMsg)
+                        check = False
+                        break
+            if check == False:
                 continue
-            elif buff == "yes" or buff == "y" or buff == "Y" or buff == "oui" or buff == "Oui":
+            if buff == "yes" or buff == "y" or buff == "Y" or buff == "oui" or buff == "Oui":
                 return True
             elif buff == "no" or buff == "n" or buff == "N" or buff == "non" or buff == "Non":
                 return False
             else:
-                if debugValue != None:
-                    return "debugError"
-                else:
-                    continue
+                continue
         else:
-            if debugValue != None:
-                    return "debugError"
             print(failureMsg)
             continue
 
 
-
-
+#clear screen
 def cls():
     """
     clear console
     - Window and Linux supported
     """
     os.system('cls' if os.name == 'nt' else 'clear')
-
