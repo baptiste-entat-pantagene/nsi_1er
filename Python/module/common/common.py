@@ -1,5 +1,5 @@
 """
-# User input management module
+# common fonction for all
 ## credit
 - Entat Baptiste
 """
