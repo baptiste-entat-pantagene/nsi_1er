@@ -1,10 +1,28 @@
 import network
 import threading
+import time
 
 
-threadA = threading.Thread(None, network.serveur, None, {}) 
-threadB = threading.Thread(None, network.client, None, {}) 
+def host():
+    server = network.Server()
+    server.listenLoop()
+    time.sleep(10)
+    server.close()
+
+def user():
+    user1 = network.Client()
+    user1.send("salut bg !")
+    time.sleep(5)
+    print(user1.dataReceived)
+    user1.close()
 
 
-threadA.start() 
+threadA = threading.Thread(target= host)
+threadB = threading.Thread(target= user)
+
+threadA.start()
 threadB.start()
+threadA.join()
+threadB.join()
+
+print("---> end <---")
