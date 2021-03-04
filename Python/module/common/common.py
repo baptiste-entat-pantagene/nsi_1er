@@ -16,9 +16,10 @@ def entry(returnType: str,
     returnType -> "int", "str", "bool", "char"
     failureMsg -> 
     blackList -> illegal char, "isspace()" -> all space
-    - int ->
-    - str ->
-    - bool -> "yes" "y" "Y" "oui" "Oui"; "no" "n" "N" "non" "Non"
+    - int -> just number
+    - str -> all
+    - bool -> "yes" "y" "Y" "oui" "Oui" "o" "O" ; "no" "n" "N" "non" "Non"
+    - char -> just on char
     """
     if returnType != "int" and returnType != "str" and returnType != "bool" and returnType != "char":
         raise NotImplementedError("returnType specified are not implemented")
@@ -75,9 +76,9 @@ def entry(returnType: str,
                         break
             if check == False:
                 continue
-            if buff == "yes" or buff == "y" or buff == "Y" or buff == "oui" or buff == "Oui":
+            if buff == "yes" or buff == "Yes" or buff == "y" or buff == "Y" or buff == "oui" or buff == "Oui" or buff == "o" or buff == "O":
                 return True
-            elif buff == "no" or buff == "n" or buff == "N" or buff == "non" or buff == "Non":
+            elif buff == "no" or buff == "No" or buff == "n" or buff == "N" or buff == "non" or buff == "Non":
                 return False
             else:
                 continue
@@ -101,8 +102,7 @@ def entry(returnType: str,
                 return buff
 
         else:
-            print(failureMsg)
-            continue
+            raise NotImplementedError()
 
 
 #clear screen
