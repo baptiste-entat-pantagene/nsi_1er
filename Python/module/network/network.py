@@ -14,8 +14,13 @@ class Server:
         self.server.listen(5)
         print("serveur start, port ->", self.server.getsockname())
 
-    def listenLoop(self):
+    def call_listenLoop(self):
+        self.threadListen = threading.Thread(target=self.__listenLoop)
+        self.threadListen.start()
+
+    def __listenLoop(self):
         while True:
+            print("run")
             if self.threadStat == False:
                 break
             client, infosClient = self.server.accept()
@@ -31,9 +36,10 @@ class Server:
 
     def close(self):
         self.threadStat = False
+        self.threadListen.join()
         self.server.close()
 
-
+"""
 def client():
     adresseIP = "192.168.56.1"  # Ici, le poste local
     port = 50000  # Se connecter sur le port 50000
@@ -45,7 +51,7 @@ def client():
     print(reponse.decode("utf-8"))
     print("Connexion fermée")
     client.close()
-
+"""
 
 class Client:
     def __init__(self) -> None:
