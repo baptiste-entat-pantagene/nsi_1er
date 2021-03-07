@@ -17,17 +17,13 @@ def user(msg):
     user1.close()
 
 
-threadA = threading.Thread(target= host)
-#threadB = threading.Thread(target= user)
-
-threadA.start()
-#threadB.start()
+serverThread = threading.Thread(target= host)
+serverThread.start()
 
 user("msg 1")
 user("msg 2")
 
-threadA.join()
-#threadB.join()
+serverThread.join()
 
 
 

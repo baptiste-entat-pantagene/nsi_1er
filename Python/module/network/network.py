@@ -1,7 +1,10 @@
 import socket
 import time
 import threading
-
+"""
+https://docs.python.org/3/library/socket.html
+https://docs.python.org/fr/3/howto/sockets.html
+"""
 
 
 class Server:
@@ -11,6 +14,7 @@ class Server:
         # create an INET, STREAMing socket
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.bind((socket.gethostname(), 50000))
+        self.server.setblocking(False)
         self.server.listen(5)
         print("serveur start, port ->", self.server.getsockname())
 
@@ -23,7 +27,11 @@ class Server:
             print("run")
             if self.threadStat == False:
                 break
-            client, infosClient = self.server.accept()
+            try:
+                global client, infosClient
+                client, infosClient = self.server.accept()
+            except:
+                pass
             print("Client connecté. Adresse " + infosClient[0])
             requete = client.recv(255)  # Reçoit 255 octets. Vous pouvez changer pour recevoir plus de données
             print(requete.decode("utf-8")) #msg reçu duclient
