@@ -4,9 +4,9 @@ import tkinter as tk
 
 
 class Application(tk.Tk):
-    def __init__(self) -> None:
+    def __init__(self, dataMethod) -> None:
         tk.Tk.__init__(self)
-        self.gateway = Gateway.Gateway(requestMethod=0)
+        self.gateway = Gateway.Gateway(requestMethod=dataMethod)
 
         self.selectFrame = tk.Frame(self)
         self.selectFrame.grid(row=0, column=0)
