@@ -6,4 +6,4 @@
 
 ## Console // TKinter
 - la version console est celle sur laquelle j'ai construit le programme et permet d'avoir le mode en ligne et hors ligne.
-- la version TKinter n'est qu'en mode en ligne et n'est qu'une maquette
+- la version TKinter n'est qu'une maquette

@@ -127,44 +127,58 @@ class Gateway:
         implementation in progress:
             None
         """
-        #print("debug productDump -->", productDump)
         buffReturn = {}
         if self.requestMode == 0:
+
+            codeMachine = ("code", "ingredients_text_fr", "nutriscore_grade",
+                           "stores", "packaging", "brands", "labels",
+                           "quantity")
+            codeHuman = ("code", "ingredients", "nutriscore_grade", "stores",
+                         "packaging", "brands", "labels", "quantity")
+            for n in range(len(codeMachine)):
+                if codeHuman[n] in option or "all" in option:
+                    try:
+                        buffReturn[codeHuman[n]] = productDump[codeMachine[n]]
+                    except:
+                        buffReturn[codeHuman[n]] = "error"
+
+            #not implemented in the for
             if "name" in option or "all" in option:
                 try:
                     buffReturn["name"] = productDump["product_name_fr"]
                 except:
-                    buffReturn["name"] = "erreur"
-            if "code" in option or "all" in option:
-                buffReturn["code"] = productDump["code"]
-            if "ingredients" in option or "all" in option:
-                buffReturn["ingredients"] = productDump["ingredients_text_fr"]
+                    try:
+                        buffReturn["name"] = productDump["product_name"]
+                    except:
+                        buffReturn["name"] = "error"
             if "ecoscore_score" in option or "all" in option:
-                buffReturn["ecoscore_score"] = productDump["ecoscore_data"][
-                    "score"]
+                try:
+                    buffReturn["ecoscore_score"] = productDump[
+                        "ecoscore_data"]["score"]
+                except:
+                    buffReturn["ecoscore_score"] = "error"
             if "ecoscore_grade" in option or "all" in option:
-                buffReturn["ecoscore_grade"] = productDump["ecoscore_data"][
-                    "grade"]
-            if "nutriscore_grade" in option or "all" in option:
-                buffReturn["nutriscore_grade"] = productDump[
-                    "nutriscore_grade"]
-            if "stores" in option or "all" in option:
-                buffReturn["stores"] = productDump["stores"]
-            if "packaging" in option or "all" in option:
-                buffReturn["packaging"] = productDump["packaging"]
-            if "brands" in option or "all" in option:
-                buffReturn["brands"] = productDump["brands"]
-            if "labels" in option or "all" in option:
-                buffReturn["labels"] = productDump["labels"]
-            if "quantity" in option or "all" in option:
-                buffReturn["quantity"] = productDump["quantity"]
+                try:
+                    buffReturn["ecoscore_grade"] = productDump[
+                        "ecoscore_data"]["grade"]
+                except:
+                    buffReturn["ecoscore_grade"] = "error"
 
         elif self.requestMode == 1:
-            if "name" in option or "all" in option:
-                buffReturn["name"] = productDump["product_name"]
-            if "code" in option or "all" in option:
-                buffReturn["code"] = productDump["code"]
-            if "ingredients" in option or "all" in option:
-                buffReturn["ingredients"] = productDump["ingredients_text"]
+            """
+            codeMachine = ("product_name", "code", "ingredients_text")
+            codeHuman = ("name", "code", "ingredients")
+            """
+            codeHuman_Machine = {
+                "name": "product_name",
+                "code": "code",
+                "ingredients": "ingredients_text"
+            }
+            for humanCode, machineCode in codeHuman_Machine.items():
+                if humanCode in option or "all" in option:
+                    try:
+                        buffReturn[humanCode] = productDump[machineCode]
+                    except:
+                        buffReturn[humanCode] = "error"
 
         return buffReturn

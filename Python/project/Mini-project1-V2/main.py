@@ -1,14 +1,14 @@
 import os
 import Gateway
 
-
+#todo : replace "cls" by the module "common"?
 def cls():
     """
     clear console
     """
     os.system('cls' if os.name == 'nt' else 'clear')
 
-
+#todo : replace "inputSecured" by the module "common" ?
 def inputSecured(msg, returnType: str):
     """
     returnType: "int", "str", "bool"(yes/no)
@@ -102,7 +102,7 @@ while True:
             raise NotADirectoryError(
                 "We need fr-openfoodfacts-org-products.csv file")
 
-        print("Successful selction of the off-line mode")
+        print("Successful selection of the off-line mode")
         dataMethod = 1
         break
     elif answer == -1:
@@ -161,10 +161,14 @@ def launchConsole(dataMethod):
         selectedProduct = gateway.getProductInDump(dump, number=int(productN))
         cls()
         while True:
-            optionInside = ("all", "name", "ingredients", "code",
-                            "ecoscore_score", "ecoscore_grade",
-                            "nutriscore_grade", "stores", "packaging",
-                            "quantity", "brands", "labels")
+            optionInside = ()
+            if dataMethod == 0:
+                optionInside = ("all", "name", "ingredients", "code",
+                                "ecoscore_score", "ecoscore_grade",
+                                "nutriscore_grade", "stores", "packaging",
+                                "quantity", "brands", "labels")
+            elif dataMethod == 1:
+                optionInside = ("all", "name", "ingredients", "code")
             buffMsg = ""
             for i in range(len(optionInside)):
                 buffMsg += ("   \n  " + str(i) + " -> " + str(optionInside[i]))

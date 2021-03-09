@@ -77,6 +77,8 @@ class Application(tk.Tk):
                     optionInside[i]) + " --> " + "information inconnu"
 
             tk.Label(text=msgBuff).grid(row=(i + 2), column=0)
-        
+
         if self.dataMethod == 1:
-            tk.Label(text="(if you want more facts, please use online request method)").grid(row=6, column=0)
+            tk.Label(
+                text="(if you want more facts, please use online request method)"
+            ).grid(row=6, column=0)
