@@ -15,12 +15,12 @@ class Gateway:
         self.requestMode = requestMethod
 
         if requestMethod == 1:
-            self.locaReader = csv.DictReader(open(
-                "fr-openfoodfacts-org-products.csv",
-                "r",
-                encoding="utf8",
-                errors="ignore"),
-                                             delimiter="\t")
+            #fr-openfoodfacts-org-products.csv
+            self.locaReader = csv.DictReader(open("product.csv",
+                                                  "r",
+                                                  encoding="utf8",
+                                                  errors="ignore"),
+                                             delimiter=";")
             #open(vocab_path, 'r', encoding='utf8', errors='ignore') #errors="ignore" else raise erorr
 
     def requestID(self, productId):
@@ -37,9 +37,7 @@ class Gateway:
                 raise NameError("id not found !")
 
         elif self.requestMode == 1:
-            print(
-                "search in progress, in local mode(search in the csv file) it can take a long time..."
-            )
+            print("search in progress")
             for row in self.locaReader:
                 if row["code"] == productId:
                     self.dump = row
@@ -69,10 +67,9 @@ class Gateway:
             )
             self.dump = []
             count = 0
-            #.find("welcome")
             for row in self.locaReader:
-                if (row["product_name"].find(productName) != -1
-                        or row["product_name"].find(
+                if (row["product_name_fr"].find(productName) != -1
+                        or row["product_name_fr"].find(
                             productName.capitalize()) != -1):
                     count += 1
                     self.dump.append(row)
@@ -114,7 +111,10 @@ class Gateway:
             except:
                 return dump
         elif self.requestMode == 1:
-            return dump[number]
+            try:
+                return dump[number]
+            except:
+                return dump
 
     def getProductFacts(self, productDump, option=(None)):
         """
@@ -128,7 +128,7 @@ class Gateway:
             None
         """
         buffReturn = {}
-        if self.requestMode == 0:
+        if self.requestMode == True:
 
             codeMachine = ("code", "ingredients_text_fr", "nutriscore_grade",
                            "stores", "packaging", "brands", "labels",
@@ -150,7 +150,10 @@ class Gateway:
                     try:
                         buffReturn["name"] = productDump["product_name"]
                     except:
-                        buffReturn["name"] = "error"
+                        try:
+                            buffReturn["name"] = productDump["name"]
+                        except:
+                            buffReturn["name"] = "error"
             if "ecoscore_score" in option or "all" in option:
                 try:
                     buffReturn["ecoscore_score"] = productDump[
@@ -166,7 +169,7 @@ class Gateway:
 
         elif self.requestMode == 1:
             """
-            codeMachine = ("product_name", "code", "ingredients_text")
+            codeMachine = ("name", "code", "ingredients")
             codeHuman = ("name", "code", "ingredients")
             """
             codeHuman_Machine = {

@@ -1,12 +1,14 @@
 import os
 import Gateway
 
+
 #todo : replace "cls" by the module "common"?
 def cls():
     """
     clear console
     """
     os.system('cls' if os.name == 'nt' else 'clear')
+
 
 #todo : replace "inputSecured" by the module "common" ?
 def inputSecured(msg, returnType: str):
@@ -56,7 +58,7 @@ while True:
 
     answer = inputSecured(
         msg=
-        "Choose the display system\n  Console -> 0\n  TKinter -> 1 (TKinter is only a test)",
+        "Choose the display system\n  Console -> 0\n  TKinter -> 1",
         returnType="int")
     if answer == 0:
         selectedDisplaySystem = 0
@@ -72,7 +74,7 @@ while True:
 
 #select request mode
 while True:
-    print("Use the online mode to get the full potential of the App")
+    print("Use the online mode to get the full potential of the App or the of-ligne mode for use the csv")
     answer = inputSecured(
         msg=
         "Select the request data system\n  0 -> Online (need some library)\n  1 -> Off-line (need a large csv file -> not on github)\n -1 -> Exit",
@@ -96,11 +98,8 @@ while True:
         break
 
     elif answer == 1:
-        #check si la dépendence existe
-        dirList_BasePath = os.listdir(os.getcwd())
-        if "fr-openfoodfacts-org-products.csv" not in dirList_BasePath:
-            raise NotADirectoryError(
-                "We need fr-openfoodfacts-org-products.csv file")
+        #remake this
+        pass
 
         print("Successful selection of the off-line mode")
         dataMethod = 1
@@ -162,13 +161,13 @@ def launchConsole(dataMethod):
         cls()
         while True:
             optionInside = ()
-            if dataMethod == 0:
-                optionInside = ("all", "name", "ingredients", "code",
-                                "ecoscore_score", "ecoscore_grade",
-                                "nutriscore_grade", "stores", "packaging",
-                                "quantity", "brands", "labels")
-            elif dataMethod == 1:
-                optionInside = ("all", "name", "ingredients", "code")
+            #if dataMethod == 0:
+            optionInside = ("all", "name", "ingredients", "code",
+                            "ecoscore_score", "ecoscore_grade",
+                            "nutriscore_grade", "stores", "packaging",
+                            "quantity", "brands", "labels")
+            #elif dataMethod == 1:
+            #    optionInside = ("all", "name", "ingredients", "code")
             buffMsg = ""
             for i in range(len(optionInside)):
                 buffMsg += ("   \n  " + str(i) + " -> " + str(optionInside[i]))
