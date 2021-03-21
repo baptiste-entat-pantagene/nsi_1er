@@ -1,14 +1,15 @@
 #include "widget.h"
 
 #include <QApplication>
-#include <QtWidgets>
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-
     Widget window;
+
+    window.setWindowTitle(QString("Hello Qt !"));
+    window.resize(500, 500);
+
     window.show();
-    window.setWindowTitle(QString("App HelloQt6"));
     return app.exec();
 }

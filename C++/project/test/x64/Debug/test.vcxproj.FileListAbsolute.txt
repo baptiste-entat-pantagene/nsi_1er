@@ -1,2 +1,0 @@
-C:\Users\bapt8\OneDrive\Documents\GitHub\nsi_1er\C++\project\test\x64\Debug\test.exe
-C:\Users\bapt8\OneDrive\Documents\GitHub\nsi_1er\C++\project\test\x64\Debug\test.pdb

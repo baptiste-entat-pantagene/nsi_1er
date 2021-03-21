@@ -1,11 +1,7 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
-#include <QtWidgets>
-
-QT_BEGIN_NAMESPACE
-namespace Ui { class Widget; }
-QT_END_NAMESPACE
+#include <QWidget>
 
 class Widget : public QWidget
 {
@@ -15,9 +11,9 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
 
-private slots:
-    void on_pushButton_clicked();
+public slots:
 
+signals:
 
 };
 #endif // WIDGET_H
