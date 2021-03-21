@@ -24,6 +24,6 @@ int main()
 		cout << "top -> " << pile.getTopDell() << endl;
 	}
 	
-	
+	system("PAUSE");
 	return 0;
 }
