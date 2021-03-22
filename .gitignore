@@ -1,3 +1,4 @@
 **/.vs/
 **/out/
 **/__pycache__/
+**/build/

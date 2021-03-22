@@ -5,12 +5,18 @@
 """
 import os
 from typing import Union
+import builtins
+
+
+def input(msg="") -> str:
+    """# debug fonction for pyteste"""
+    return builtins.input(msg)
 
 
 #entry section
 def entry(returnType: str,
           failureMsg: str = "",
-          blackList:list=["", "isspace()"]) -> Union[int, str, bool]:
+          blackList: list = ["", "isspace()"]) -> Union[int, str, bool]:
     """
     # entry
     returnType -> "int", "str", "bool", "char"

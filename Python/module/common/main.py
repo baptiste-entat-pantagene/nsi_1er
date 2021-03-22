@@ -4,6 +4,7 @@ import common
 print("type your name")
 varStr = common.entry(returnType="str")
 print("name -->", varStr)
+print(str(type(varStr)))
 
 print("\ntype your age")
 varInt = common.entry(returnType="int")
