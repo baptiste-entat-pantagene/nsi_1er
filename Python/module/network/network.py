@@ -47,19 +47,7 @@ class Server:
         self.threadListen.join()
         self.server.close()
 
-"""
-def client():
-    adresseIP = "192.168.56.1"  # Ici, le poste local
-    port = 50000  # Se connecter sur le port 50000
-    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client.connect((adresseIP, port))
-    print("Connecté au serveur")
-    client.send("Bonjour, je suis le client".encode("utf-8"))
-    reponse = client.recv(255)
-    print(reponse.decode("utf-8"))
-    print("Connexion fermée")
-    client.close()
-"""
+
 
 class Client:
     def __init__(self) -> None:
