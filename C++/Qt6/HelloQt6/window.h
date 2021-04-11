@@ -2,6 +2,7 @@
 #define WINDOW_H
 
 #include <QWidget>
+#include <QGridLayout>
 #include <QPushButton>
 
 class Window : public QWidget
@@ -14,7 +15,13 @@ public:
 
 private slots:
   void handleButton();
+
 private:
+  QGridLayout *m_mainLayout;
   QPushButton *m_button;
+  int geoButtonR;
+  int geoButtonC;
+
+
 };
 #endif // WINDOW_H
