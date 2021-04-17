@@ -1,10 +1,15 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
+#include <QDebug> //debug
 #include <QWidget>
 #include <QGridLayout>
 #include <QPushButton>
 #include <QLabel>
+#include <QString>
+#include <qfloat16>
+#include <QQueue>
+#include "button.h"
 
 class Widget : public QWidget
 {
@@ -13,23 +18,21 @@ class Widget : public QWidget
 public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
+
+    void calcResult();
+
 public slots:
-    void num0Presed();
-    void num1Presed();
-    void num2Presed();
-    void num3Presed();
-    void num4Presed();
-    void num5Presed();
-    void num6Presed();
-    void num7Presed();
-    void num8Presed();
-    void num9Presed();
+    void numNPresed();
 
 signals:
 
 
 private:
     QGridLayout *m_layout;
-    //QGridLayout *m_layoutButton;
+    QGridLayout *m_layoutButton;
+    QGridLayout *m_layoutView;
+
+    QLabel *viewer;
+    QString *viewerString;
 };
 #endif // WIDGET_H

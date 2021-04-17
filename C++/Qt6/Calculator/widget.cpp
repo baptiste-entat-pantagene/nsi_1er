@@ -4,50 +4,98 @@ Widget::Widget(QWidget *parent)
     : QWidget(parent)
 {
     m_layout = new QGridLayout(this);
+    m_layoutButton = new QGridLayout();
+    m_layoutView = new QGridLayout();
+
+    m_layout->addLayout(m_layoutView, 1, 1);
+    m_layout->addLayout(m_layoutButton, 2, 1, 3, 1);
 
 
-    QPushButton *m_newButton1 = new QPushButton("1");
-    connect(m_newButton1, &QPushButton::pressed, this, &Widget::num1Presed);
-    m_layout->addWidget(m_newButton1, 2, 0);
 
-    QPushButton *m_newButton2 = new QPushButton("2");
-    connect(m_newButton2, &QPushButton::pressed, this, &Widget::num2Presed);
-    m_layout->addWidget(m_newButton2, 2, 1);
+    //button setup
+    for (qint8 i=0;i<=9 ;i++ ) {
+        Button *newbutton = new Button(i);
+        newbutton->setText(QString::number(i));
+        connect(newbutton, &Button::signalEventPressed, this, &Widget::numNPresed);
+        switch (i) {
+        case 0: {
+            m_layoutButton->addWidget(newbutton, 3, 0, 1, 3);
+            break;
+        }
+        case 1: {
+            m_layoutButton->addWidget(newbutton, 2, 0);
+            break;
+        }
+        case 2: {
+            m_layoutButton->addWidget(newbutton, 2, 1);
+            break;
+        }
+        case 3: {
+            m_layoutButton->addWidget(newbutton, 2, 2);
+            break;
+        }
+        case 4: {
+            m_layoutButton->addWidget(newbutton, 1, 0);
+            break;
+        }
+        case 5: {
+            m_layoutButton->addWidget(newbutton, 1, 1);
+            break;
+        }
+        case 6: {
+            m_layoutButton->addWidget(newbutton, 1, 2);
+            break;
+        }
+        case 7: {
+            m_layoutButton->addWidget(newbutton, 0, 0);
+            break;
+        }
+        case 8: {
+            m_layoutButton->addWidget(newbutton, 0, 1);
+            break;
+        }
+        case 9: {
+            m_layoutButton->addWidget(newbutton, 0, 2);
+            break;
+        }
+        default: {
+            break;
+        }
+        }
 
-    QPushButton *m_newButton3 = new QPushButton("3");
-    connect(m_newButton3, &QPushButton::pressed, this, &Widget::num3Presed);
-    m_layout->addWidget(m_newButton3, 2, 2);
+        for (qint8 i=10;i<=12 ;i++ ) {
+            Button *newbutton = new Button(i);
+            connect(newbutton, &Button::signalEventPressed, this, &Widget::numNPresed);
+            switch (i) {
+            case 10: {
+                newbutton->setText(QString("-"));
+                m_layoutButton->addWidget(newbutton, 0, 3);
+                break;
+            }
+            case 11: {
+                newbutton->setText(QString("+"));
+                m_layoutButton->addWidget(newbutton, 1, 3);
+                break;
+            }
+            case 12: {
+                newbutton->setText(QString("="));
+                m_layoutButton->addWidget(newbutton, 2, 3);
+                break;
+            }
+            default: {
+                break;
+            }
+            }
+        }
 
-    QPushButton *m_newButton4 = new QPushButton("4");
-    connect(m_newButton4, &QPushButton::pressed, this, &Widget::num4Presed);
-    m_layout->addWidget(m_newButton4, 1, 0);
 
-    QPushButton *m_newButton5 = new QPushButton("5");
-    connect(m_newButton5, &QPushButton::pressed, this, &Widget::num5Presed);
-    m_layout->addWidget(m_newButton5, 1, 1);
+        //view setup
+        viewer = new QLabel();
+        viewerString = new QString("");
+        viewer->setText("00,0");
+        m_layoutView->addWidget(viewer, 0, 0);
+    }
 
-    QPushButton *m_newButton6 = new QPushButton("6");
-    connect(m_newButton6, &QPushButton::pressed, this, &Widget::num6Presed);
-    m_layout->addWidget(m_newButton6, 1, 2);
-
-    QPushButton *m_newButton7 = new QPushButton("7");
-    connect(m_newButton7, &QPushButton::pressed, this, &Widget::num7Presed);
-    m_layout->addWidget(m_newButton7, 2, 0);
-
-    QPushButton *m_newButton8 = new QPushButton("8");
-    connect(m_newButton8, &QPushButton::pressed, this, &Widget::num8Presed);
-    m_layout->addWidget(m_newButton8, 2, 1);
-
-    QPushButton *m_newButton9 = new QPushButton("9");
-    connect(m_newButton9, &QPushButton::pressed, this, &Widget::num9Presed);
-    m_layout->addWidget(m_newButton9, 2, 2);
-
-    QPushButton *m_newButton0 = new QPushButton("0");
-    connect(m_newButton0, &QPushButton::pressed, this, &Widget::num1Presed);
-    m_layout->addWidget(m_newButton0, 3, 0, 1, 3);
-
-    QLabel *saisieUtilisateur = new QLabel("void");
-    m_layout->addWidget(saisieUtilisateur, 0, 4);
 
 }
 
@@ -55,47 +103,111 @@ Widget::~Widget()
 {
 }
 
-void Widget::num0Presed()
+void Widget::calcResult()
 {
+    qDebug("calcResult");
+
+    //-->slice ligne
+    QQueue<QString> *splitResult = new QQueue<QString>;
+
+    QString *curentChar = new QString();
+    QString *construcLign = new QString();
+    for (quint8 i = 0;i<viewerString->length() ;i++ ) {
+        *curentChar = viewerString->at(i);
+        //qDebug() << viewerString[0][i]; // same ?
+        //qDebug() << viewerString->at(i); //same ?
+
+        if (*curentChar == "-") {
+            splitResult->enqueue(*construcLign);
+            *construcLign = "";
+            splitResult->enqueue("-");
+        }
+        else if (*curentChar == "+") {
+            splitResult->enqueue(*construcLign);
+            *construcLign = "";
+            splitResult->enqueue("+");
+        }
+        else {
+            *construcLign += *curentChar;
+        }
+    }
+    splitResult->enqueue(*construcLign);
+
+
+    delete curentChar;
+    delete construcLign;
+
+    //-->calcule
+    float_t *result = new float_t();
+    QString *curentCalc = new QString();
+     *result = splitResult->dequeue().toFloat();
+    qDebug()<<*result;
+    while (!splitResult->isEmpty()) {
+        if (splitResult->dequeue() == "-") {
+            *result -= splitResult->dequeue().toFloat();
+            qDebug()<<*result;
+        }
+        else if (splitResult->dequeue() == "+") {
+            *result += splitResult->dequeue().toFloat();
+            qDebug()<<*result;
+        }
+
+    }
+    qDebug()<<"calc =";
+    qDebug()<<*result;
+    delete curentCalc;
+    delete splitResult;
+
+
+    viewer->setText(QString::number(*result));
+    *viewerString = "";
+    delete result;
+
 
 }
-void Widget::num1Presed()
-{
-    qDebug("void Widget::num1Presed() is here !");
-    QLabel *m_pressed = new QLabel("bravo kids");
-    m_layout->addWidget(m_pressed, 5, 5);
-}
-void Widget::num2Presed()
-{
 
-}
 
-void Widget::num3Presed()
+void Widget::numNPresed()
 {
+    QObject *emetteur = sender(); // emetteur contient le QPushButton btn si on clique sur ce bouto
+    Button *emetteurCasted = qobject_cast<Button*>(emetteur); // On caste le sender en ce que nous supposons qu'il soit
+    if(emetteurCasted) //emetteurCasted vaut 0 si le cast à échoué
+    {
+        qint8 emetKey = emetteurCasted->getKeyId();
+        qDebug() << emetKey;
 
-}
-void Widget::num4Presed()
-{
+        if (emetKey <=9) {
+        *viewerString += QString::number(emetKey);
+        }
+        else {
+            switch (emetKey) {
+            case 10: {
+                *viewerString += QString("-");
+                break;
+            }
+            case 11: {
+                *viewerString += QString("+");
+                break;
+            }
+            case 12: {
+                //en dessous
+                break;
+            }
+            default: {
+                break;
+            }
 
-}
-void Widget::num5Presed()
-{
+            }
+        }
 
-}
-void Widget::num6Presed()
-{
+        if (emetKey == 12) {
+            Widget::calcResult(); //deleg result
+        }
+        else {
+            viewer->setText(*viewerString);
+        }
 
-}
-void Widget::num7Presed()
-{
 
-}
-void Widget::num8Presed()
-{
-
-}
-void Widget::num9Presed()
-{
-
+    }
 }
 
