@@ -31,7 +31,7 @@ void Pile::setTop(int data)
 {
 	m_dataArray[m_actualLevel] = data;
 	m_actualLevel += 1;
-	
+
 }
 
 void Pile::dellTop()
