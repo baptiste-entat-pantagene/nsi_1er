@@ -6,9 +6,7 @@
 using namespace std;
 
 void afficher(string tableau[3][3]);
-
 void NewAction(std::string  caseTab[3][3], string charact);
-
 string etatGame(std::string  caseTab[3][3]);
 
 int main()
