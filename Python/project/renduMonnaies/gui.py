@@ -14,12 +14,13 @@ class Application(tk.Tk):  # delete master
 
         self.frame_rendu = tk.Frame(self)
         self.frame_rendu.grid(column=2, row=1)
-        
+
         self.entry_var = tk.StringVar()
 
         self.create_base()
         self.update_widget_compte()
 
+        self.bind(sequence="<Return>", func=self.calculate)
 
     def create_base(self):
         self.entry = tk.Entry(self, textvariable=self.entry_var)
@@ -36,24 +37,26 @@ class Application(tk.Tk):  # delete master
         label.grid(column=col, row=ro)
         ro += 1
 
-        compte:dict = self.gestM.get_compte()
+        compte: dict = self.gestM.get_compte()
         for key, val in compte.items():
-            label = tk.Label(self.frame_compte, text=str(str(key) + "€ -> il en reste :" + str(val)))
+            label = tk.Label(self.frame_compte, text=str(
+                str(key) + "€ -> il en reste :" + str(val)))
             label.grid(column=col, row=ro)
             ro += 1
 
     def update_widget_rendu(self):
-        lstRendu:dict = self.gestM.renduMonnaies(float(self.entry_var.get()))
+        RenduDict: dict = self.gestM.renduMonnaies(int(self.entry_var.get()))
 
         ro = 0
         label = tk.Label(self.frame_compte, text="pieces à rendre: ")
         label.grid(column=1, row=ro)
         ro += 1
-        for key, val in lstRendu.items():
-            label = tk.Label(self.frame_compte, text=str(str(key) + "€ -> il en faut :" + str(val)))
+        for key, val in RenduDict.items():
+            label = tk.Label(self.frame_compte, text=str(
+                str(key) + "€ -> il en faut :" + str(val)))
             label.grid(column=1, row=ro)
             ro += 1
-        
+
     def resetFrame(self):
         self.frame_rendu.destroy()
         self.frame_rendu = tk.Frame(self)
@@ -63,9 +66,17 @@ class Application(tk.Tk):  # delete master
         self.frame_compte = tk.Frame(self)
         self.frame_compte.grid(column=1, row=1)
 
-
-    def calculate(self):
+    def calculate(self, event=None):
         self.resetFrame()
-        self.update_widget_rendu()
+
+        try:
+            self.update_widget_rendu()
+        except Exception as exp:
+            if exp.args == ("out of money",):  # , <--!
+                print("out of money\n>> Good bay !")
+                self.destroy()
+                return None
+            else:
+                raise  # propagate Exeption
+
         self.update_widget_compte()
-        
