@@ -1,3 +1,6 @@
+"""
+Entat Baptiste
+"""
 import tkinter as tk
 from systemeMonetaire import *
 

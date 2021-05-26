@@ -1,4 +1,11 @@
+"""
+Entat Baptiste
+"""
 from systemeMonetaire import *
+"""
+Use a test launcher
+(PyTest)
+"""
 
 
 def test_compte_setAndGet():

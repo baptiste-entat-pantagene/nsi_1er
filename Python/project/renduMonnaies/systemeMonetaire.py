@@ -1,3 +1,8 @@
+"""
+Entat Baptiste
+"""
+
+
 class GestionMonetaire:
     def __init__(self) -> None:
         self._compte = {1: 0, 2: 0, 5: 0, 10: 0, 20: 0, 50: 0, 100: 0}

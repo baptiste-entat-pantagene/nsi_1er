@@ -1,3 +1,6 @@
+"""
+Entat Baptiste
+"""
 from systemeMonetaire import *
 import gui
 
